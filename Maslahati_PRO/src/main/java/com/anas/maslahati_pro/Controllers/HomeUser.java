@@ -10,9 +10,8 @@ public class HomeUser {
 
     @GetMapping("/userhome")
     public String username(){
-       return "userHome.jsp";
+       return "userHome";
     }
-
 
 
 }
