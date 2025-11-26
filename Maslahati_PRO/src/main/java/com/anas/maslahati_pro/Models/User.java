@@ -5,8 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -52,13 +52,17 @@ public class User {
 
 
 
-//    One user can review More than one services
+//  One user can review More than one services
     @OneToMany(mappedBy = "reviewer", cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
 
+//    user can have more than one request
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Request> requests = new ArrayList<>();
 
 
-//    One user can have More than one service
+
+//  One user can have More than one service
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<ServiceTypes> services = new ArrayList<>();
 
