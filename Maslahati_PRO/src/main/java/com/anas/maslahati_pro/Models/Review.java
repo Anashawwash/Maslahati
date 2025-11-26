@@ -19,9 +19,9 @@ public class Review {
     // Relationship to the User who is being reviewed (e.g., Professional)
     @ManyToOne
     @JoinColumn(name = "reviewed_id")
-    private User reviewed;
+    private ServiceTypes reviewed;
 
-    private Integer rating; // 1 to 5
+    private Integer rating;
 
     private String comment;
 }
