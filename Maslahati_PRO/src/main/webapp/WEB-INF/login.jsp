@@ -12,9 +12,7 @@
 
 <div class="flex h-screen">
 
-    <!-- Left Side -->
     <div class="w-1/2 relative">
-        <img src="" class="w-full h-full object-cover">
 
         <div class="absolute inset-0 bg-black bg-opacity-60"></div>
 
@@ -35,12 +33,10 @@
         </div>
     </div>
 
-    <!-- Right Side -->
     <div class="w-1/2 flex items-center justify-center">
 
         <div class="w-96">
 
-            <!-- Top Tabs -->
             <div class="flex justify-around mb-8">
                 <a href="/login" class="text-blue-600 font-semibold border-b-2 border-blue-600 pb-2">Sign In</a>
                 <a href="/signup" class="text-gray-500 hover:text-blue-600 pb-2">Sign Up</a>
@@ -50,6 +46,27 @@
             <p class="text-gray-500 mb-6">Sign in to your account to continue</p>
 
             <form action="/login" method="post">
+
+                <input type="hidden" id="roleInput" name="role" value="USER">
+
+                <div class="mb-6">
+                    <label class="font-medium">Choose Account Type</label>
+
+                    <div class="flex gap-4 mt-2">
+
+                        <button type="button"
+                                class="flex-1 border p-2 rounded-lg bg-blue-600 text-white">
+                            User
+                        </button>
+
+                        <button type="button"
+                                class="flex-1 border p-2 rounded-lg hover:bg-gray-200">
+                            Craftsman
+                        </button>
+
+                    </div>
+                </div>
+
 
                 <label class="font-medium">Email Address</label>
                 <input type="email" name="email"
@@ -76,6 +93,7 @@
     </div>
 
 </div>
+
 
 </body>
 </html>
