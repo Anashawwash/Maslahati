@@ -5,9 +5,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
+@SessionAttributes({"user", "worker"})
 public class AuthController {
 
+    private Map<String, User> users = new HashMap<>();
+
+    // ------------------- LOGIN -----------------------
     @GetMapping("/login")
     public String showLogin() {
         return "login";
@@ -19,61 +26,82 @@ public class AuthController {
                         @RequestParam String role,
                         Model model) {
 
-        boolean validWorker = email.equals("worker@gmail.com") && password.equals("1234");
-        boolean validUser = email.equals("user@gmail.com") && password.equals("1234");
+        User user = users.get(email);
 
-        if (!validWorker && !validUser) {
+        if (user == null || !user.getPassword().equals(password) ||
+                (role.equalsIgnoreCase("WORKER") != user.isCraftsman())) {
             model.addAttribute("error", "Invalid email or password!");
             return "login";
         }
 
-        if ("WORKER".equalsIgnoreCase(role)) {
-            User worker = new User();
-            worker.setEmail(email);
-
-            model.addAttribute("worker", worker);
-            model.addAttribute("rating", 4.7);
-            model.addAttribute("usersCount", 42);
-            model.addAttribute("completedOrders", 128);
-
+        if (user.isCraftsman()) {
+            model.addAttribute("worker", user);
+            model.addAttribute("rating", 0);
+            model.addAttribute("usersCount", 0);
+            model.addAttribute("completedOrders", 0);
             return "worker-dashboard";
-        }
-
-        if ("USER".equalsIgnoreCase(role)) {
-            User user = new User();
-            user.setEmail(email);
-
+        } else {
             model.addAttribute("user", user);
-            return "user-dashboard";
+            return "userHome";
         }
-
-        return "login";
     }
 
+    // ------------------- SIGNUP -----------------------
     @GetMapping("/signup")
     public String showSignup() {
         return "signup";
     }
 
     @PostMapping("/signup")
-    public String signup(@RequestParam String name,
+    public String signup(@RequestParam String username,
                          @RequestParam String email,
+                         @RequestParam String phone,
+                         @RequestParam String location,
                          @RequestParam String password,
-                         @RequestParam(required = false) String role,
+                         @RequestParam String confirmPassword,
+                         @RequestParam String role,
                          Model model) {
 
+        if (!password.equals(confirmPassword)) {
+            model.addAttribute("error", "Passwords do not match!");
+            return "signup";
+        }
+
+        if (users.containsKey(email)) {
+            model.addAttribute("error", "Email already exists!");
+            return "signup";
+        }
+
         User newUser = new User();
+        newUser.setUserName(username);
         newUser.setEmail(email);
+        newUser.setPhone(phone);
+        newUser.setLocation(location);
+        newUser.setPassword(password);
+        newUser.setCraftsman(role.equalsIgnoreCase("WORKER"));
 
+        users.put(email, newUser);
 
-
+        if (newUser.isCraftsman()) {
             model.addAttribute("worker", newUser);
             model.addAttribute("rating", 0);
             model.addAttribute("usersCount", 0);
             model.addAttribute("completedOrders", 0);
-
             return "worker-dashboard";
+        } else {
+            model.addAttribute("user", newUser);
+            return "userHome";
         }
+    }
 
+    // ------------------- DASHBOARDS -----------------------
+    @GetMapping("/worker-dashboard")
+    public String workerDashboard() {
+        return "worker-dashboard";
+    }
 
+    @GetMapping("/userHome")
+    public String userHome() {
+        return "userHome";
+    }
 }

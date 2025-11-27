@@ -10,72 +10,98 @@
 
 <body class="bg-gray-50">
 
-<div class="flex h-screen">
+<div class="flex min-h-screen">
 
-    <!-- Left Side -->
-    <div class="w-1/2 relative">
-        <img src="/images/tools-bg.jpg" class="w-full h-full object-cover">
+    <!-- Left Side: Banner -->
+    <div class="w-1/2 relative hidden md:block">
         <div class="absolute inset-0 bg-black bg-opacity-60"></div>
-
-        <div class="absolute top-1/4 left-14 text-white">
+        <div class="absolute top-1/4 left-12 text-white">
             <h1 class="text-5xl font-bold mb-4">🛠️ مصلحــاتي</h1>
             <h2 class="text-3xl font-semibold mb-4">Join Us Today</h2>
-            <p class="max-w-md leading-7 text-gray-200">
+            <p class="max-w-sm leading-7 text-gray-200">
                 Create your account and get access to trusted professionals and seamless home service experience.
             </p>
         </div>
     </div>
 
-    <!-- Right Side -->
-    <div class="w-1/2 flex items-center justify-center">
+    <!-- Right Side: Form -->
+    <div class="flex-1 flex items-center justify-center px-4">
+        <div class="w-full max-w-md bg-white p-10 rounded-xl shadow-lg">
 
-        <div class="w-96">
-
-            <div class="flex justify-around mb-8">
-                <a href="/login" class="text-gray-500 hover:text-blue-600 pb-2">Sign In</a>
-                <a href="/signup" class="text-blue-600 font-semibold border-b-2 border-blue-600 pb-2">Sign Up</a>
+            <!-- Navigation Tabs -->
+            <div class="flex justify-center mb-8 border-b border-gray-200">
+                <a href="/login" class="text-gray-500 hover:text-blue-600 px-4 py-2">Sign In</a>
+                <a href="/signup" class="text-blue-600 font-semibold border-b-2 border-blue-600 px-4 py-2">Sign Up</a>
             </div>
 
-            <h2 class="text-2xl font-bold mb-2">Create Account</h2>
+            <h2 class="text-2xl font-bold mb-6 text-center">Create Account</h2>
 
-            <form action="/signup" method="post">
+            <c:if test="${not empty error}">
+                <div class="bg-red-100 text-red-700 p-3 rounded mb-4 text-center">${error}</div>
+            </c:if>
+
+            <form action="/signup" method="post" class="space-y-4">
 
                 <!-- Username -->
-                <label class="font-medium">Username</label>
-                <input type="text" name="username"
-                       class="w-full p-3 border rounded-lg mt-1 mb-4" required>
+                <div>
+                    <label class="font-medium block mb-1">Username</label>
+                    <input type="text" name="username" placeholder="Enter your username"
+                           class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
 
                 <!-- Email -->
-                <label class="font-medium">Email Address</label>
-                <input type="email" name="email"
-                       class="w-full p-3 border rounded-lg mt-1 mb-4" required>
+                <div>
+                    <label class="font-medium block mb-1">Email Address</label>
+                    <input type="email" name="email" placeholder="you@example.com"
+                           class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
 
-                <!-- Phone -->
-                <label class="font-medium">Phone Number</label>
-                <input type="text" name="phone"
-                       class="w-full p-3 border rounded-lg mt-1 mb-4" required>
+                <!-- Phone & Location in 2 columns -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="font-medium block mb-1">Phone Number</label>
+                        <input type="text" name="phone" placeholder="059-xxxxxxx"
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    <div>
+                        <label class="font-medium block mb-1">Location</label>
+                        <input type="text" name="location" placeholder="City / Area"
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                </div>
 
-                <!-- Location -->
-                <label class="font-medium">Location</label>
-                <input type="text" name="location"
-                       class="w-full p-3 border rounded-lg mt-1 mb-4" required>
+                <!-- Role -->
+                <div>
+                    <label class="font-medium block mb-1">Account Type</label>
+                    <select name="role" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <option value="WORKER">Worker</option>
+                        <option value="USER">User</option>
+                    </select>
+                </div>
 
-                <!-- Password -->
-                <label class="font-medium">Password</label>
-                <input type="password" name="password"
-                       class="w-full p-3 border rounded-lg mt-1 mb-4" required>
-
-                <!-- Confirm Password -->
-                <label class="font-medium">Confirm Password</label>
-                <input type="password" name="confirmPassword"
-                       class="w-full p-3 border rounded-lg mt-1 mb-6" required>
+                <!-- Password & Confirm Password -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="font-medium block mb-1">Password</label>
+                        <input type="password" name="password" placeholder="••••••••"
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    <div>
+                        <label class="font-medium block mb-1">Confirm Password</label>
+                        <input type="password" name="confirmPassword" placeholder="••••••••"
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                </div>
 
                 <button type="submit"
-                        class="w-full bg-blue-600 text-white p-3 rounded-lg mb-4 hover:bg-blue-700">
+                        class="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition">
                     Create Account
                 </button>
-
             </form>
+
+            <p class="text-center text-gray-500 text-sm mt-6">
+                Already have an account? <a href="/login" class="text-blue-600 font-semibold">Sign In</a>
+            </p>
 
         </div>
     </div>

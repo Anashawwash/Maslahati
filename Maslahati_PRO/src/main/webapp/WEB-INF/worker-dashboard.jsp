@@ -26,17 +26,20 @@
 
 <div class="flex-1 p-10">
 
-    <h1 class="text-3xl font-bold mb-3">Welcome, <span class="text-blue-700">${worker.name}</span></h1>
+    <h1 class="text-3xl font-bold mb-3">Welcome,
+        <span class="text-blue-700">${worker.userName}</span>
+    </h1>
+
     <p class="text-gray-600 mb-8">Here is your professional overview</p>
 
     <div class="bg-white rounded-xl shadow p-6 mb-10">
         <h2 class="text-xl font-bold mb-4">Your Information</h2>
 
         <div class="grid grid-cols-2 gap-6">
-            <p><span class="font-medium">Name:</span> ${worker.name}</p>
+            <p><span class="font-medium">Name:</span> ${worker.userName}</p>
             <p><span class="font-medium">Email:</span> ${worker.email}</p>
-            <p><span class="font-medium">Profession:</span> ${worker.profession}</p>
-            <p><span class="font-medium">Experience:</span> ${worker.experience} years</p>
+            <p><span class="font-medium">Phone:</span> ${worker.phone}</p>
+            <p><span class="font-medium">Location:</span> ${worker.location}</p>
         </div>
     </div>
 
@@ -54,7 +57,7 @@
 
         <div class="bg-white shadow rounded-xl p-6 text-center">
             <h3 class="text-lg font-bold text-gray-700">Completed Orders</h3>
-            <p class="text-4xl font-extrabold text-green-600 mt-3">128</p>
+            <p class="text-4xl font-extrabold text-green-600 mt-3">${completedOrders}</p>
         </div>
 
     </div>

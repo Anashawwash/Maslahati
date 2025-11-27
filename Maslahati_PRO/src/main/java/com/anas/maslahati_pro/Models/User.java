@@ -1,11 +1,11 @@
 package com.anas.maslahati_pro.Models;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,57 +19,43 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true )
-    @NotEmpty(message = "Username name is required")
-    @Size(min = 3 , max = 30,message = "Username must be between 3 and 30 characters")
+    @Column(unique = true)
+    @NotEmpty(message = "Username is required")
+    @Size(min = 3, max = 30, message = "Username must be between 3 and 30 characters")
     private String userName;
 
-    @NotBlank(message = "Username name is required")
-    @Email(message = "the email should be valid")
+    @NotBlank(message = "Email is required")
+    @Email(message = "The email should be valid")
     private String email;
 
-    @NotEmpty(message="Password is required!")
-    @Size(min=8, max=128, message="Password must be between 8 and 128 characters")
+    @NotEmpty(message = "Password is required!")
+    @Size(min = 8, max = 128, message = "Password must be between 8 and 128 characters")
     private String password;
 
-    @NotEmpty(message="PhoneNumber  is required!")
-    @Size(min=10, max=10, message="Password must be between 8 and 128 characters")
-    private String phoneNumber;
+    @NotEmpty(message = "Phone is required!")
+    @Size(min = 10, max = 10, message = "Phone must be exactly 10 digits")
+    private String phone;
 
-
-
-
-    @NotEmpty(message="Location is required!")
+    @NotEmpty(message = "Location is required!")
     private String location;
 
     @Transient
-    @NotEmpty(message="Confirm Password is required!")
-    @Size(min=8, max=128, message="Confirm Password must be between 8 and 128 characters")
+    @NotEmpty(message = "Confirm Password is required!")
+    @Size(min = 8, max = 128, message = "Confirm Password must be between 8 and 128 characters")
     private String confirmPas;
 
     private boolean craftsman;
 
+    // ---------------- Relations --------------------
 
-
-
-//  One user can review More than one services
     @OneToMany(mappedBy = "reviewer", cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
 
-//    user can have more than one request
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Request> requests = new ArrayList<>();
 
-
-
-//  One user can have More than one service
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<ServiceTypes> services = new ArrayList<>();
-
-
-
-
-
 
     @Column(updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -78,16 +64,19 @@ public class User {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date updatedAt;
 
-//    -----------------Starting the methods _____________----------____________--------________
+    // ---------------- Lifecycle --------------------
+
     @PrePersist
-    protected void onCreate(){
+    protected void onCreate() {
         this.createdAt = new Date();
     }
+
     @PreUpdate
-    protected void onUpdate(){
+    protected void onUpdate() {
         this.updatedAt = new Date();
     }
 
+    // ---------------- Getters & Setters ----------------
 
     public Long getId() {
         return id;
@@ -121,12 +110,12 @@ public class User {
         this.password = password;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getLocation() {
