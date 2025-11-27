@@ -1,65 +1,55 @@
 package com.anas.maslahati_pro.Services;
 
-
 import com.anas.maslahati_pro.Models.User;
-import com.anas.maslahati_pro.Models.LoginUser;
-import com.anas.maslahati_pro.Reopsitories.UserRepository;
-import org.mindrot.jbcrypt.BCrypt;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepo;
+    private List<User> users = new ArrayList<>();
 
+    // ------------------ Signup ------------------
+    public String registerUser(User user) {
+        if (!user.getPassword().equals(user.getConfirmPassword())) {
+            return "Passwords do not match!";
+        }
 
-    public User NewUserVal(BindingResult result, User user){
-        if (userRepo.findByEmail(user.getEmail()) != null){
-            result.rejectValue("email","Error","this email is already taken");
-            return null;
-        }
-        if(!user.getPassword().equals(user.getConfirmPas())){
-            result.rejectValue("confirmPas","Error","the Password did not match");
-            return null;
-        }
-        try{
-            String hashed = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
-            user.setPassword(hashed);
-            userRepo.save(user);
-        } catch (DataIntegrityViolationException e) {
-            result.rejectValue("userName","Error","the Email or UserName it taken");
-            result.rejectValue("email","Error","the Email or UserName it taken");
-            return null;
-        }
-        return user;
-    }
-
-    public User LoginVal(BindingResult result, LoginUser loginUser){
-        User user = userRepo.findByEmail(loginUser.getLoginEmail());
-        if (user == null){
-            result.rejectValue("loginEmail","Error","this Email is not exist");
-            return null;
-        }
-        else{
-            if (!BCrypt.checkpw(loginUser.getConfarm(), user.getPassword())) {
-                result.rejectValue("confirm","Error","the Password or Email are invalid ");
-                return null;
+        for (User u : users) {
+            if (u.getEmail().equalsIgnoreCase(user.getEmail())) {
+                return "Email already exists!";
             }
         }
-        return user;
+
+        users.add(user);
+
+        return "SUCCESS";
     }
 
+    // ------------------ Login ------------------
+    public User loginUser(String email, String password, String role) {
+        for (User u : users) {
+            if (u.getEmail().equalsIgnoreCase(email)
+                    && u.getPassword().equals(password)) {
 
-    public User getById(Long id){
-        return userRepo.findById(id).orElse(null);
+                boolean isWorker = "WORKER".equalsIgnoreCase(role);
+
+                if (isWorker && u.isCraftsman()) {
+                    return u; // Worker
+                }
+
+                if (!isWorker && !u.isCraftsman()) {
+                    return u; // User
+                }
+            }
+        }
+
+        return null;
     }
 
-
-
-
-
+    public List<User> getAllUsers() {
+        return users;
+    }
 }
