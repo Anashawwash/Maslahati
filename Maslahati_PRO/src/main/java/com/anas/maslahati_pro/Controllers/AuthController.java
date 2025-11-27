@@ -36,7 +36,7 @@ public class AuthController {
             model.addAttribute("usersCount", 42);
             model.addAttribute("completedOrders", 128);
 
-            return "worker-dashboard";
+            return "worker_dashboard";
         }
 
         if ("USER".equalsIgnoreCase(role)) {
@@ -49,7 +49,10 @@ public class AuthController {
 
         return "login";
     }
-
+    @GetMapping("/homepage")
+    public String homepage() {
+        return "index";
+    }
     @GetMapping("/signup")
     public String showSignup() {
         return "signup";
@@ -72,7 +75,7 @@ public class AuthController {
             model.addAttribute("usersCount", 0);
             model.addAttribute("completedOrders", 0);
 
-            return "worker-dashboard";
+            return "worker_dashboard";
         }
 
 

@@ -30,6 +30,7 @@
     </style>
 </head>
 <body class="bg-gray-50" dir="rtl">
+<jsp:include page="includes/header.jsp" />
 <!-- Header Section -->
 <header class="bg-white border-b border-gray-200">
     <div class="max-w-7xl mx-auto px-4 py-8">
@@ -146,5 +147,7 @@
         </div>
     </div>
 </main>
+<!-- Include Footer -->
+<jsp:include page="includes/footer.jsp" />
 </body>
 </html>
