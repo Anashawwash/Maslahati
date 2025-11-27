@@ -6,8 +6,23 @@
     <meta charset="UTF-8">
     <title>Maslahati | Sign Up</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function sendRequest() {
+            const name = document.getElementById("name").value;
+            fetch('/api/try?name=' + name)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("result").innerText = data.status;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
 </head>
 <body class="bg-gray-50">
-<h1>hello</h1>
+
+
+<input type="text" id="name" placeholder="Enter your name">
+<button onclick="sendRequest()">Say Hello</button>
+<p id="result"></p>
 </body>
 </html>

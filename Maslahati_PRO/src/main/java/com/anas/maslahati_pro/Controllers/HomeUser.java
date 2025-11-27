@@ -14,4 +14,9 @@ public class HomeUser {
     }
 
 
+    @GetMapping("/love")
+    public String love(){
+        return "test";
+    }
+
 }
