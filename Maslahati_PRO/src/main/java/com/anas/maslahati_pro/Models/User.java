@@ -36,7 +36,8 @@ public class User {
     @NotEmpty(message="PhoneNumber  is required!")
     @Size(min=10, max=10, message="Password must be between 8 and 128 characters")
     private String phoneNumber;
-
+//user avatar
+    private String avatar ="https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg";
 
 
 
