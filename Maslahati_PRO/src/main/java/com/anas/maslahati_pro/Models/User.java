@@ -50,6 +50,7 @@ public class User {
 
     private boolean craftsman = false;
 
+
 //  One user can review More than one services
     @OneToMany(mappedBy = "reviewer", cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
