@@ -54,9 +54,9 @@
             <div class="flex flex-wrap gap-3 justify-end w-full md:w-auto">
 
                 <div class="relative">
-                    <select class="appearance-none px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition pr-10 text-right cursor-pointer">
-                        <option>كل التخصصات</option>
-                        <option>تخصص 1</option>
+                    <select id="profession" class="appearance-none px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition pr-10 text-right cursor-pointer">
+                        <option value="all">كل التخصصات</option>
+                        <option value="pata"> موسرجي</option>
                         <option>تخصص 2</option>
                         <option>تخصص 3</option>
                     </select>
@@ -150,4 +150,13 @@
 <!-- Include Footer -->
 <jsp:include page="includes/footer.jsp" />
 </body>
+<script>
+    document.getElementById("profession").addEventListener("change", function() {
+        const selected = this.value;
+        console.log(selected);
+        fetch(`/userhome?rate=${selected}`)
+            .then(response => response.json())
+    });
+
+</script>
 </html>
