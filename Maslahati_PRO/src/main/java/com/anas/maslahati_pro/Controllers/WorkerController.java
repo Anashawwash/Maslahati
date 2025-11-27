@@ -14,7 +14,7 @@ public class WorkerController {
         model.addAttribute("usersCount", 42);
         model.addAttribute("rating", 4.7);
 
-        return "worker-dashboard";
+        return "worker_dashboard";
     }
 
 }

@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <title>Maslahati | Sign In</title>
@@ -9,7 +9,7 @@
 </head>
 
 <body class="bg-gray-50">
-
+<jsp:include page="includes/header.jsp" />
 <div class="flex h-screen">
 
     <div class="w-1/2 relative">
@@ -93,7 +93,8 @@
     </div>
 
 </div>
-
+<!-- Include Footer -->
+<jsp:include page="includes/footer.jsp" />
 
 </body>
 </html>

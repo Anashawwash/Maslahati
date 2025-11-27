@@ -1,14 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <title>Craftsman Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100 flex">
-
+<body>
+<jsp:include page="includes/header.jsp" />
+<div class="bg-gray-100 flex">
 <div class="w-64 h-screen bg-blue-900 text-white flex flex-col p-6">
     <h2 class="text-2xl font-bold mb-10">🛠️ Craftsman Panel</h2>
 
@@ -60,5 +61,8 @@
     </div>
 
 </div>
+</div>
+<!-- Include Footer -->
+<jsp:include page="includes/footer.jsp" />
 </body>
 </html>
