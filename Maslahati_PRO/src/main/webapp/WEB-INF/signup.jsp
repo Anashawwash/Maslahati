@@ -12,7 +12,7 @@
 <jsp:include page="includes/header.jsp" />
 <div class="flex h-screen">
 
-    <!-- Same Left Side -->
+    <!-- Left Side -->
     <div class="w-1/2 relative">
         <img src="/images/tools-bg.jpg" class="w-full h-full object-cover">
         <div class="absolute inset-0 bg-black bg-opacity-60"></div>
@@ -40,16 +40,34 @@
 
             <form action="/signup" method="post">
 
-                <label class="font-medium">Full Name</label>
-                <input type="text" name="name"
+                <!-- Username -->
+                <label class="font-medium">Username</label>
+                <input type="text" name="username"
                        class="w-full p-3 border rounded-lg mt-1 mb-4" required>
 
+                <!-- Email -->
                 <label class="font-medium">Email Address</label>
                 <input type="email" name="email"
                        class="w-full p-3 border rounded-lg mt-1 mb-4" required>
 
+                <!-- Phone -->
+                <label class="font-medium">Phone Number</label>
+                <input type="text" name="phone"
+                       class="w-full p-3 border rounded-lg mt-1 mb-4" required>
+
+                <!-- Location -->
+                <label class="font-medium">Location</label>
+                <input type="text" name="location"
+                       class="w-full p-3 border rounded-lg mt-1 mb-4" required>
+
+                <!-- Password -->
                 <label class="font-medium">Password</label>
                 <input type="password" name="password"
+                       class="w-full p-3 border rounded-lg mt-1 mb-4" required>
+
+                <!-- Confirm Password -->
+                <label class="font-medium">Confirm Password</label>
+                <input type="password" name="confirmPassword"
                        class="w-full p-3 border rounded-lg mt-1 mb-6" required>
 
                 <button type="submit"
