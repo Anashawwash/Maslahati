@@ -21,10 +21,17 @@ public class ServiceTypes{
     @NotEmpty(message = "This should not left blank")
     private String name;
 
+    @NotEmpty
+    private String experienceYear= "0";
+
     @NotEmpty(message = "This should not left blank")
     @Size(min = 5,message = "this should by at least 5 character ")
     private String description;
 
+    @ElementCollection
+    @CollectionTable(name = "service_images", joinColumns = @JoinColumn(name = "service_id"))
+    @Column(name = "image_url")
+    private List<String> imageUrls = new ArrayList<>();
 
     @Column(updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")

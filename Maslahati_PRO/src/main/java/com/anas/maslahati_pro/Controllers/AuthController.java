@@ -53,6 +53,14 @@ public class AuthController {
     public String homepage() {
         return "index";
     }
+    @GetMapping("/user/prufile")
+    public String prufile() {
+        return "user_prufile";
+    }
+    @GetMapping("/register/choice")
+    public String choice() {
+        return "register-choice";
+    }
     @GetMapping("/signup")
     public String showSignup() {
         return "signup";
