@@ -12,10 +12,10 @@ public class LoginUser {
     private String loginEmail;
 
 
-
     @NotEmpty(message="Confirm Password is required!")
     @Size(min=8, max=128, message="Confirm Password must be between 8 and 128 characters")
-    private String confarm;
+    private String confirm;
+
 
     public String getLoginEmail() {
         return loginEmail;
@@ -25,11 +25,11 @@ public class LoginUser {
         this.loginEmail = loginEmail;
     }
 
-    public String getConfarm() {
-        return confarm;
+    public String getConfirm() {
+        return confirm;
     }
 
-    public void setConfarm(String confarm) {
-        this.confarm = confarm;
+    public void setConfirm(String confirm) {
+        this.confirm = confirm;
     }
 }
