@@ -103,10 +103,27 @@
 
 <!-- Craftsmen Grid Section -->
 <main class="max-w-7xl mx-auto px-4 py-12">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div id="main" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
         <!-- Craftsman Card 1 -->
-        <div class="craftsman-card bg-white rounded-lg overflow-hidden shadow-md">
+
+
+    </div>
+</main>
+<!-- Include Footer -->
+<jsp:include page="includes/footer.jsp" />
+</body>
+<script>
+    document.getElementById("profession").addEventListener("change", function() {
+        const selected = this.value;
+        console.log(selected);
+        axios.get(`/userhome?rate=${selected}`)
+            .then(response => {
+                let html =``
+                const data = response.data;
+                const main = document.getElementById("mian");
+                data.forEach(trying => {
+                    html = `  <div class="craftsman-card bg-white rounded-lg overflow-hidden shadow-md">
             <div class="relative h-48 bg-gray-200 overflow-hidden">
                 <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&h=300&fit=crop" alt="خالد أحمد" class="w-full h-full object-cover">
             </div>
@@ -114,7 +131,7 @@
                 <div class="flex items-start justify-between mb-2">
                     <div class="text-right flex-1">
                         <h3 class="font-bold text-gray-900">خالد أحمد</h3>
-                        <p class="text-sm text-gray-600">نجار</p>
+                        <p class="text-sm text-gray-600">${trying.user.username}</p>
                     </div>
                     <div class="rating-badge text-white px-2 py-1 rounded-md text-sm font-bold flex items-center gap-1">
                         <span>4.7</span>
@@ -145,18 +162,12 @@
                 </div>
             </div>
         </div>
-    </div>
-</main>
-<!-- Include Footer -->
-<jsp:include page="includes/footer.jsp" />
-</body>
-<script>
-    document.getElementById("profession").addEventListener("change", function() {
-        const selected = this.value;
-        console.log(selected);
-        fetch(`/userhome?rate=${selected}`)
-            .then(response => response.json())
+ `;
+
+                });
+            });
     });
+    main.innerHTML = html;
 
 </script>
 </html>

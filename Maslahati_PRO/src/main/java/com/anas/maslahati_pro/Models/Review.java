@@ -10,7 +10,7 @@ public class Review {
     private Long id;
 
 
-    // Relationship to the User who wrote the review (e.g., Homeowner)
+    // Relationship to the User who wrote the review
     @ManyToOne
     @JoinColumn(name = "reviewer_id", nullable = false)
     private User reviewer;

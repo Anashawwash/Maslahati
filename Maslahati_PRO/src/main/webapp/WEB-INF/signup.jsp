@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -36,54 +38,65 @@
 
             <h2 class="text-2xl font-bold mb-6 text-center">Create Account</h2>
 
-            <c:if test="${not empty error}">
-                <div class="bg-red-100 text-red-700 p-3 rounded mb-4 text-center">${error}</div>
-            </c:if>
-
-            <form action="/signup" method="post" class="space-y-4">
+            <form:form action="/signup" method="post" modelAttribute="newUser" class="space-y-4">
 
                 <!-- Hidden Role -->
-                <input type="hidden" name="role" value="USER">
+                <form:hidden path="craftsman" value="${type}" />
+
 
                 <!-- Username -->
                 <div>
                     <label class="font-medium block mb-1">Username</label>
-                    <input type="text" name="userName" placeholder="Enter your username"
-                           class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    <form:input path="userName"
+                                cssClass="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="Enter your username" required="true"/>
+                    <form:errors path="userName" cssClass="text-red-500 text-sm mt-1 block"/>
                 </div>
 
                 <!-- Email -->
                 <div>
                     <label class="font-medium block mb-1">Email Address</label>
-                    <input type="email" name="email" placeholder="you@example.com"
-                           class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    <form:input path="email" type="email"
+                                cssClass="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="you@example.com" required="true"/>
+                    <form:errors path="email" cssClass="text-red-500 text-sm mt-1 block"/>
                 </div>
 
                 <!-- Phone & Location -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
                     <div>
                         <label class="font-medium block mb-1">Phone Number</label>
-                        <input type="text" name="phoneNumber" placeholder="059-xxxxxxx"
-                               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <form:input path="phoneNumber" cssClass="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="059-xxxxxxx" required="true"/>
+                        <form:errors path="phoneNumber" cssClass="text-red-500 text-sm mt-1 block"/>
                     </div>
+
                     <div>
                         <label class="font-medium block mb-1">Location</label>
-                        <input type="text" name="location" placeholder="City / Area"
-                               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <form:input path="location"
+                                    cssClass="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    placeholder="City / Area" required="true"/>
+                        <form:errors path="location" cssClass="text-red-500 text-sm mt-1 block"/>
                     </div>
                 </div>
 
                 <!-- Password & Confirm Password -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
                     <div>
                         <label class="font-medium block mb-1">Password</label>
-                        <input type="password" name="password" placeholder="••••••••"
-                               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <form:password path="password"
+                                       cssClass="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                       placeholder="••••••••" required="true"/>
+                        <form:errors path="password" cssClass="text-red-500 text-sm mt-1 block"/>
                     </div>
+
                     <div>
                         <label class="font-medium block mb-1">Confirm Password</label>
-                        <input type="password" name="confirmPassword" placeholder="••••••••"
-                               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <form:password path="confirmPassword"
+                                       cssClass="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                       placeholder="••••••••" required="true"/>
+                        <form:errors path="confirmPassword" cssClass="text-red-500 text-sm mt-1 block"/>
                     </div>
                 </div>
 
@@ -92,7 +105,8 @@
                         class="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition">
                     Create Account
                 </button>
-            </form>
+            </form:form>
+
 
             <p class="text-center text-gray-500 text-sm mt-6">
                 Already have an account? <a href="/login" class="text-blue-600 font-semibold">Sign In</a>

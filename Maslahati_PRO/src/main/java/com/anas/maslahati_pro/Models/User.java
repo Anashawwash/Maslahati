@@ -37,6 +37,7 @@ public class User {
     private String password;
 
     // Phone Number
+    @Column(unique = true)
     @NotEmpty(message = "Phone number is required!")
     @Size(min = 10, max = 10, message = "Phone number must be exactly 10 digits")
     private String phoneNumber;
@@ -86,6 +87,31 @@ public class User {
     }
 
     // Getters and Setters
+
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public List<Request> getRequests() {
+        return requests;
+    }
+
+    public void setRequests(List<Request> requests) {
+        this.requests = requests;
+    }
+
+    public List<ServiceTypes> getServices() {
+        return services;
+    }
+
+    public void setServices(List<ServiceTypes> services) {
+        this.services = services;
+    }
 
     public Long getId() { return id; }
 
