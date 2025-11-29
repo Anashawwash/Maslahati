@@ -2,7 +2,10 @@ package com.anas.maslahati_pro.Controllers;
 
 
 import com.anas.maslahati_pro.Models.LoginUser;
+import com.anas.maslahati_pro.Models.ServiceTypes;
 import com.anas.maslahati_pro.Models.User;
+import com.anas.maslahati_pro.Reopsitories.ServiceRepository;
+import com.anas.maslahati_pro.Services.ServiceServices;
 import com.anas.maslahati_pro.Services.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -21,6 +24,19 @@ public class MainController {
     @Autowired
     UserService userServ;
 
+    @Autowired
+    ServiceServices serviceServ;
+    @Autowired
+    private ServiceRepository serviceRepository;
+
+
+
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }
 
     @GetMapping("/")
     public String index(HttpSession session) {
@@ -81,7 +97,7 @@ public class MainController {
 
 
     @GetMapping("/homeworker")
-    public String homeworker(HttpSession session) {
+    public String homeworker(HttpSession session ,Model model) {
         User user = (User) session.getAttribute("User");
         if (user == null) {
             return "redirect:/";
@@ -89,12 +105,15 @@ public class MainController {
         if (user != null && !user.isCraftsman()) {
             return "redirect:/homeuser";
         }
+        model.addAttribute("worker", user);
+        int many = serviceRepository.findAllByUser(user).size();
+        model.addAttribute("many", many);
         return "worker_dashboard";
     }
 
 
     @GetMapping("/homeuser")
-    public String homeuser(HttpSession session) {
+    public String homeuser(HttpSession session,Model model) {
         User user = (User) session.getAttribute("User");
         if (user == null) {
             return "redirect:/";
@@ -102,6 +121,9 @@ public class MainController {
         if (user != null && user.isCraftsman()) {
             return "redirect:/homeworker";
         }
+        model.addAttribute("User", user);
+        model.addAttribute("many", serviceServ.findAll().size());
+        model.addAttribute("service", serviceServ.findAll());
         return "userHome";
     }
 
@@ -140,4 +162,30 @@ public class MainController {
 
     }
 
+
+
+    @GetMapping("/addservice")
+    public String addservice(HttpSession session ,Model model,@ModelAttribute("service")ServiceTypes servecic ) {
+        User user = (User) session.getAttribute("User");
+        if (user == null) {
+            return "redirect:/";
+        }
+        if (user != null  && !user.isCraftsman()) {
+            return "redirect:/homeuser";
+        }
+        model.addAttribute("worker", user);
+        return "addService";
+    }
+
+
+    @PostMapping("/addservice")
+    public String addservice(@Valid @ModelAttribute("service") ServiceTypes service, BindingResult result){
+        if (result.hasErrors()) {
+            return "addService";
+        }
+        else {
+            serviceServ.saveService(service);
+            return "redirect:/homeworker";
+        }
+    }
 }
