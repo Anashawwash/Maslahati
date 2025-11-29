@@ -43,4 +43,16 @@ public class RequestServices {
     public List<Request> findAll(){
         return requestRepo.findAll();
     }
+
+    public Request findByID(Long id){
+        return requestRepo.findById(id).get();
+    }
+
+    public List<Request> findAllByUserId(Long id){
+        return requestRepo.findAllByUserId(id);
+    }
+
+    public void deleteRequest(Long id){
+        requestRepo.deleteById(id);
+    }
 }

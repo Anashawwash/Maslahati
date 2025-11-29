@@ -34,9 +34,12 @@ public class Request {
     @JoinColumn(name = "service_id")
     private ServiceTypes Service;
 
+//    this means that the status of the request in still new less than 3 days
     private boolean status = true;
 
     private Boolean done = false;
+
+    private boolean inProgress = false;
 
     @Column(updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -49,6 +52,26 @@ public class Request {
 
 //=====------------_________------------________________
 
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public boolean isInProgress() {
+        return inProgress;
+    }
+
+    public void setInProgress(boolean inProgress) {
+        this.inProgress = inProgress;
+    }
 
     public boolean isStatus() {
         return status;

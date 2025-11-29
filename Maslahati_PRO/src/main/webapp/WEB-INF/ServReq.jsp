@@ -10,82 +10,120 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="min-h-screen bg-gray-50">
+<body class="min-h-screen bg-gray-100 text-gray-800">
 
-<header class="bg-white shadow-sm sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-20">
-            <a href="/homeworker" class="px-6 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
-                <i class="fas fa-arrow-right ml-2"></i> العودة
-            </a>
-            <a href="index.jsp" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
-                <span class="text-xl font-bold text-gray-900">مصلحاتي</span>
-                <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
-                    <i class="fas fa-tools text-white text-lg"></i>
-                </div>
-            </a>
+<!-- HEADER -->
+<header class="bg-white border-b shadow-sm sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto flex justify-between items-center py-4 px-4">
+        <a href="/homeworker" class="flex items-center gap-2 text-gray-600 hover:text-gray-900">
+            <i class="fa-solid fa-arrow-right"></i>
+            <span>الرجوع</span>
+        </a>
+
+        <div class="flex items-center gap-2">
+            <span class="text-xl font-bold">مصلحاتي</span>
+            <div class="w-10 h-10 bg-blue-600 text-white flex items-center justify-center rounded-full">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+            </div>
         </div>
     </div>
 </header>
 
-<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+<div class="max-w-4xl mx-auto py-10 px-4 space-y-10">
 
-    <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4 text-right">طلبات الخدمة</h1>
+    <!-- ─────────────── NEW REQUESTS ─────────────── -->
+    <h2 class="text-2xl font-bold text-blue-600 border-b-2 border-blue-600 pb-1">الطلبات الجديدة</h2>
 
-    <!-- Loop over services -->
+    <c:set var="hasNew" value="false"/>
     <c:forEach var="serviceObj" items="${service}">
         <c:forEach var="request" items="${serviceObj.requests}">
+            <c:if test="${!request.inProgress}">
+                <c:if test="${!request.done}">
 
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden relative p-6">
+                <c:set var="hasNew" value="true"/>
 
-                <!-- Badge -->
-                <c:choose>
-                    <c:when test="${request.status}">
-                        <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
-                            جديد
-                        </span>
-                    </c:when>
-                    <c:otherwise>
-                        <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold bg-gray-200 text-gray-700">
-                            قديم
-                        </span>
-                    </c:otherwise>
-                </c:choose>
+                <div class="relative bg-white shadow-lg rounded-xl p-6 hover:shadow-xl transition">
 
-                <!-- Request Info -->
-                <div class="mb-4">
-                    <h2 class="text-xl font-bold text-gray-900 mb-1">طلب من ${request.user.userName}</h2>
-                </div>
+                    <!-- Badge -->
+                    <c:choose>
+                        <c:when test="${request.status}">
+                            <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
+                                جديد
+                            </span>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold bg-gray-200 text-gray-700">
+                                قديم
+                            </span>
+                        </c:otherwise>
+                    </c:choose>
 
-                <div class="space-y-3 mb-6 text-gray-700">
-                    <div class="flex justify-between">
-                        <span class="font-semibold text-gray-800">العنوان:</span>
-                        <span>${request.address}</span>
+                    <!-- Request Info -->
+                    <h3 class="text-xl font-bold mb-3 mt-4">${request.user.userName}</h3>
+                    <p><span class="font-semibold">العنوان:</span> ${request.address}</p>
+                    <p class="mt-2"><span class="font-semibold">الوصف:</span> ${request.problemDesc}</p>
+
+                    <div class="grid grid-cols-2 gap-3 mt-6">
+                        <form action="/requests/accept/${request.id}" method="GET">
+                            <button class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">قبول</button>
+                        </form>
+                        <form action="/requests/reject/${request.id}" method="GET">
+                            <button class="w-full border border-gray-300 py-2 rounded-lg hover:bg-gray-200">رفض</button>
+                        </form>
                     </div>
-                    <div class="flex justify-between">
-                        <span class="font-semibold text-gray-800">الوصف:</span>
-                        <span>${request.problemDesc}</span>
-                    </div>
                 </div>
-
-                <!-- Action Buttons -->
-                <div class="flex gap-3 pt-4 border-t border-gray-100">
-                    <form action="/requests/accept/${request.id}" method="POST" class="flex-1">
-                        <button type="submit" class="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                            قبول الطلب
-                        </button>
-                    </form>
-                    <form action="/requests/reject/${request.id}" method="POST" class="flex-1">
-                        <button type="submit" class="w-full px-6 py-3 border border-gray-300 bg-white text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
-                            رفض
-                        </button>
-                    </form>
-                </div>
-
-            </div>
+            </c:if>
+        </c:if>
 
         </c:forEach>
     </c:forEach>
+
+    <c:if test="${!hasNew}">
+        <p class="text-gray-500 text-center">لا يوجد طلبات جديدة</p>
+    </c:if>
+
+    <!-- ─────────────── IN PROGRESS ─────────────── -->
+    <h2 class="text-2xl font-bold text-yellow-600 border-b-2 border-yellow-600 pb-1">طلبات قيد التنفيذ</h2>
+
+    <c:set var="hasProgress" value="false"/>
+    <c:forEach var="serviceObj" items="${service}">
+        <c:forEach var="request" items="${serviceObj.requests}">
+            <c:if test="${request.inProgress}">
+            <c:if test="${!request.done}">
+
+            <c:set var="hasProgress" value="true"/>
+
+                <div class="relative bg-white shadow-lg rounded-xl p-6 hover:shadow-xl transition border-l-4 border-yellow-500">
+
+                    <!-- Badge -->
+                <c:if test="${request.inProgress}">
+                            <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">
+                                جاري العمل عليه
+                            </span>
+                </c:if>
+
+                    <!-- Request Info -->
+                    <h3 class="text-xl font-bold mb-3 mt-4">${request.user.userName}</h3>
+                    <p><span class="font-semibold">العنوان:</span> ${request.address}</p>
+                    <p class="mt-2"><span class="font-semibold">الوصف:</span> ${request.problemDesc}</p>
+
+                    <div class="grid grid-cols-2 gap-3 mt-6">
+                        <form action="/requests/accept/${request.id}" method="GET">
+                            <button class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">إنهاء</button>
+                        </form>
+                        <form action="/requests/reject/${request.id}" method="GET">
+                            <button class="w-full border border-gray-300 py-2 rounded-lg hover:bg-gray-200">إلغاء</button>
+                        </form>
+                    </div>
+                </div>
+            </c:if>
+          </c:if>
+        </c:forEach>
+    </c:forEach>
+
+    <c:if test="${!hasProgress}">
+        <p class="text-gray-500 text-center">لا يوجد طلبات قيد التنفيذ</p>
+    </c:if>
 
 </div>
 </body>

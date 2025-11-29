@@ -1,18 +1,17 @@
 package com.anas.maslahati_pro.Controllers;
 
 
-import com.anas.maslahati_pro.Models.LoginUser;
-import com.anas.maslahati_pro.Models.Request;
-import com.anas.maslahati_pro.Models.ServiceTypes;
-import com.anas.maslahati_pro.Models.User;
+import com.anas.maslahati_pro.Models.*;
 import com.anas.maslahati_pro.Reopsitories.ServiceRepository;
 import com.anas.maslahati_pro.Services.RequestServices;
+import com.anas.maslahati_pro.Services.ReviewServices;
 import com.anas.maslahati_pro.Services.ServiceServices;
 import com.anas.maslahati_pro.Services.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +29,9 @@ public class MainController {
 
     @Autowired
     RequestServices  requestServ;
+
+    @Autowired
+    ReviewServices reviewServ;
 
 
 
@@ -200,8 +202,10 @@ public class MainController {
         if (user == null ) {
             return "redirect:/";
         }
-        model.addAttribute("serv",serviceServ.findById(id));
+        ServiceTypes service = serviceServ.findById(id);
+        model.addAttribute("serv",service);
         model.addAttribute("User",user);
+        model.addAttribute("review",reviewServ.findAllReviewsByReviewed(service));
         return "Booking";
     }
 
@@ -231,5 +235,83 @@ public class MainController {
         model.addAttribute("User", user);
         model.addAttribute("service", serviceServ.findAllByUser(user));
         return "ServReq";
+    }
+
+
+    @GetMapping("/requests/accept/{id}")
+    public String AcceptRequest(@PathVariable("id") Long id, HttpSession session, Model model){
+        User user = (User) session.getAttribute("User");
+        if (user == null) {
+            return "redirect:/";
+        }
+        if (!user.isCraftsman()) {
+            return "redirect:/homeuser";
+        }
+        System.out.println("________-------------------________________");
+        Request request =  requestServ.findByID(id);
+        request.setInProgress(true);
+        requestServ.saveRequest(request);
+        return "redirect:/servreq";
+    }
+
+
+    @GetMapping("/myrequests")
+    public String myrequests(HttpSession session ,Model model){
+        User user = (User) session.getAttribute("User");
+        if (user == null) {
+            return "redirect:/";
+        }
+        if (user.isCraftsman()) {
+            return "redirect:/homeworker";
+        }
+        model.addAttribute("User", user);
+        model.addAttribute("requests", requestServ.findAllByUserId(user.getId()));
+        return "MyRequest";
+    }
+
+
+    @GetMapping("/requests/cancel/{id}")
+    public String cancelRequest(@PathVariable("id") Long id, HttpSession session, Model model){
+        User user = (User) session.getAttribute("User");
+        if (user == null) {
+            return "redirect:/";
+        }
+        if (user.isCraftsman()) {
+            return "redirect:/homeworker";
+        }
+        requestServ.deleteRequest(id);
+        return "redirect:/myrequests";
+    }
+
+    @GetMapping("/requests/add/review/{id}")
+    public String reviewRequest(@ModelAttribute("newReview")Review review, @PathVariable("id") Long id, HttpSession session, Model model){
+        User user = (User) session.getAttribute("User");
+        if (user == null) {
+            return "redirect:/";
+        }
+        if (user.isCraftsman()) {
+            return "redirect:/homeworker";
+        }
+        model.addAttribute("User", user);
+        model.addAttribute("request",requestServ.findByID(id));
+        return "ReviewPage";
+    }
+
+    @PostMapping("/reviews/save/{id}")
+    public String saveReview(@PathVariable("id") Long id,@Valid @ModelAttribute("newReview") Review review, BindingResult result,HttpSession session, Model model){
+        User user = (User) session.getAttribute("User");
+        if (result.hasErrors()) {
+            return "ReviewPage";
+        }
+        Request request =  requestServ.findByID(id);
+        ServiceTypes service = review.getReviewed();
+        int y = review.getRating();
+        serviceServ.getTheRangeRate(service , y);
+        request.setDone(true);
+        Integer i = 1;
+        service.setDoneOrders(i);
+        request.setInProgress(false);
+        reviewServ.saveReview(review);
+        return "redirect:/homeuser";
     }
 }
