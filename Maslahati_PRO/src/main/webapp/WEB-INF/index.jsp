@@ -210,6 +210,5 @@
         animateActiveWorkers();
     }, 3000);
 </script>
-
 </body>
 </html>
