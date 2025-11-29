@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        <!-- Additional Box for Workers Count -->
+        <!-- Active Workers Box -->
         <div class="w-full max-w-3xl mx-auto">
             <div class="bg-yellow-400 text-gray-900 rounded-2xl p-8 text-center shadow-xl">
                 <h3 class="text-2xl font-bold mb-2">عدد الصنايعية النشطين</h3>
@@ -195,14 +195,19 @@
         if(idx === 1) animateCounter(workersCountEl, workersCountFinal);
     }
 
-    // Animate active workers count separately
-    animateCounter(activeWorkersCountEl, activeWorkersCountFinal);
+    function animateActiveWorkers() {
+        animateCounter(activeWorkersCountEl, activeWorkersCountFinal);
+    }
 
+    // Animate initially
     showSlide(index);
+    animateActiveWorkers();
 
+    // Rotate slider every 3s
     setInterval(() => {
         index = (index + 1) % 2;
         showSlide(index);
+        animateActiveWorkers();
     }, 3000);
 </script>
 
