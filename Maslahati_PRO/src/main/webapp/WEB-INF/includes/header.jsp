@@ -6,7 +6,7 @@
 
             <!-- Navigation -->
             <nav class="flex gap-8">
-                <a href="/homepage" class="nav-link">الرئيسية</a>
+                <a href="/homepage" class="hover:underline hover:text-blue-600 nav-link">الرئيسية</a>
                 <a href="/login" class="nav-link">تسجيل الدخول</a>
                 <a href="register/choice" class="nav-link">تسجيل حساب</a>
             </nav>
@@ -26,17 +26,4 @@
     </div>
 </header>
 
-<!-- TailwindCSS لتلوين الرابط النشط -->
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const links = document.querySelectorAll("nav .nav-link");
-        const current = window.location.pathname.split("/").pop();
-        links.forEach(link => {
-            if (link.getAttribute("href") === current) {
-                link.classList.add("text-[#2563eb]");
-            } else {
-                link.classList.add("text-gray-600", "hover:text-[#2563eb]");
-            }
-        });
-    });
-</script>
+

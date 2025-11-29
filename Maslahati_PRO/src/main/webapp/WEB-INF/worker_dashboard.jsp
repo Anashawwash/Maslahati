@@ -9,58 +9,55 @@
 
 <body>
 <jsp:include page="includes/header.jsp" />
-<div class="bg-gray-100 flex">
-<div class="w-64 h-screen bg-blue-900 text-white flex flex-col p-6">
-    <h2 class="text-2xl font-bold mb-10">🛠️ Craftsman Panel</h2>
+<div class="bg-gray-100 flex" dir="rtl">
+    <div class="w-64 h-screen bg-blue-900 text-white flex flex-col p-6">
+        <h2 class="text-2xl font-bold mb-10">🛠️ لوحة الحرفي</h2>
 
-    <a class="py-2 mb-2 hover:bg-blue-700 rounded px-3" href="#">Edit Profile</a>
-    <a class="py-2 mb-2 hover:bg-blue-700 rounded px-3" href="#">View Requests</a>
-    <a class="py-2 mb-2 hover:bg-blue-700 rounded px-3" href="#">Ratings</a>
-    <a class="py-2 mb-2 hover:bg-blue-700 rounded px-3" href="#">Add New Service</a>
-    <a class="py-2 mb-2 hover:bg-blue-700 rounded px-3" href="#">Orders List</a>
-    <a class="py-2 mb-2 hover:bg-blue-700 rounded px-3" href="#">Contact Support</a>
+        <a class="py-2 mb-2 hover:bg-blue-700 rounded px-3" href="#">تعديل الملف الشخصي</a>
+        <a class="py-2 mb-2 hover:bg-blue-700 rounded px-3" href="#">عرض الطلبات</a>
+        <a class="py-2 mb-2 hover:bg-blue-700 rounded px-3" href="#">التقييمات</a>
+        <a class="py-2 mb-2 hover:bg-blue-700 rounded px-3" href="/addservice">إضافة خدمة جديدة</a>
 
-    <div class="mt-auto">
-        <a class="py-2 mt-20 hover:bg-red-600 bg-red-500 text-center rounded block" href="/logout">Logout</a>
-    </div>
-</div>
-
-<div class="flex-1 p-10">
-
-    <h1 class="text-3xl font-bold mb-3">Welcome, <span class="text-blue-700">${worker.name}</span></h1>
-    <p class="text-gray-600 mb-8">Here is your professional overview</p>
-
-    <div class="bg-white rounded-xl shadow p-6 mb-10">
-        <h2 class="text-xl font-bold mb-4">Your Information</h2>
-
-        <div class="grid grid-cols-2 gap-6">
-            <p><span class="font-medium">Name:</span> ${worker.name}</p>
-            <p><span class="font-medium">Email:</span> ${worker.email}</p>
-            <p><span class="font-medium">Profession:</span> ${worker.profession}</p>
-            <p><span class="font-medium">Experience:</span> ${worker.experience} years</p>
+        <div class="mt-auto">
+            <a class="py-2 mt-20 hover:bg-red-600 bg-red-500 text-center rounded block" href="/logout">تسجيل الخروج</a>
         </div>
     </div>
 
-    <div class="grid grid-cols-3 gap-6">
+    <div class="flex-1 p-10">
 
-        <div class="bg-white shadow rounded-xl p-6 text-center">
-            <h3 class="text-lg font-bold text-gray-700">Total Users Served</h3>
-            <p class="text-4xl font-extrabold text-blue-700 mt-3">${usersCount}</p>
+        <h1 class="text-3xl font-bold mb-3">مرحبًا، <span class="text-blue-700">${worker.userName}</span></h1>
+        <p class="text-gray-600 mb-8">هنا نظرة عامة على مهاراتك المهنية</p>
+
+        <div class="bg-white rounded-xl shadow p-6 mb-10">
+            <h2 class="text-xl font-bold mb-4">معلوماتك الشخصية</h2>
+            <div class="grid grid-cols-2 gap-6">
+                <p><span class="font-medium">الاسم:</span> ${worker.userName}</p>
+                <p><span class="font-medium">البريد الإلكتروني:</span> ${worker.email}</p>
+                <p><span class="font-medium">عدد الخدمات المقدمة:</span> ${many}</p>
+                <p><span class="font-medium">الخبرة:</span> سنوات</p>
+            </div>
         </div>
 
-        <div class="bg-white shadow rounded-xl p-6 text-center">
-            <h3 class="text-lg font-bold text-gray-700">Overall Rating</h3>
-            <p class="text-4xl font-extrabold text-yellow-500 mt-3">${rating}</p>
-        </div>
+        <div class="grid grid-cols-3 gap-6">
 
-        <div class="bg-white shadow rounded-xl p-6 text-center">
-            <h3 class="text-lg font-bold text-gray-700">Completed Orders</h3>
-            <p class="text-4xl font-extrabold text-green-600 mt-3">128</p>
+            <div class="bg-white shadow rounded-xl p-6 text-center">
+                <h3 class="text-lg font-bold text-gray-700">إجمالي المستخدمين المخدومين</h3>
+                <p class="text-4xl font-extrabold text-blue-700 mt-3"></p>
+            </div>
+
+            <div class="bg-white shadow rounded-xl p-6 text-center">
+                <h3 class="text-lg font-bold text-gray-700">التقييم العام</h3>
+                <p class="text-4xl font-extrabold text-yellow-500 mt-3"></p>
+            </div>
+
+            <div class="bg-white shadow rounded-xl p-6 text-center">
+                <h3 class="text-lg font-bold text-gray-700">الطلبات المكتملة</h3>
+                <p class="text-4xl font-extrabold text-green-600 mt-3">0999</p>
+            </div>
+
         </div>
 
     </div>
-
-</div>
 </div>
 <!-- Include Footer -->
 <jsp:include page="includes/footer.jsp" />

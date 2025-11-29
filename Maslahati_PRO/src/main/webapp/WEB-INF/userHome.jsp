@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -96,7 +97,7 @@
 
         </div>
         <div class="flex items-center justify-between mt-6 pt-4 border-t border-gray-200">
-            <span class="text-gray-600 text-sm">6 صناعي متاح</span>
+            <span class="text-gray-600 text-sm">${many} صناعي متاح</span>
         </div>
     </div>
 </section>
@@ -104,8 +105,48 @@
 <!-- Craftsmen Grid Section -->
 <main class="max-w-7xl mx-auto px-4 py-12">
     <div id="main" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
         <!-- Craftsman Card 1 -->
+        <c:forEach items="${service}" var="serv" >
+            <div class="craftsman-card bg-white rounded-lg overflow-hidden shadow-md">
+                <div class="relative h-48 bg-gray-200 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&h=300&fit=crop" alt="خالد أحمد" class="w-full h-full object-cover">
+                </div>
+                <div class="p-4">
+                    <div class="flex items-start justify-between mb-2">
+                        <div class="text-right flex-1">
+                            <h3 class="font-bold text-gray-900">${serv.user.userName}</h3>
+                            <p class="text-sm text-gray-600"></p>
+                        </div>
+                        <div class="rating-badge text-white px-2 py-1 rounded-md text-sm font-bold flex items-center gap-1">
+                            <span>4.7</span>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 text-sm text-gray-600 mb-4">
+
+                        <div class="flex items-center gap-2 justify-end">
+                            <span>${serv.user.location}</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between text-sm text-blue-600 border-t border-gray-200 pt-3">
+                        <a href="#" class="hover:underline">عرض الملف</a>
+                        <span>156 عمل منجز</span>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
+
+
+
+
+
 
 
     </div>
