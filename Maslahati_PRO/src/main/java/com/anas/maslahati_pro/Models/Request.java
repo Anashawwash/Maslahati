@@ -2,6 +2,7 @@ package com.anas.maslahati_pro.Models;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -19,6 +20,14 @@ public class Request {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @NotEmpty(message = "Location is required!")
+    private String problemDesc;
+
+    @NotEmpty(message = "Location is required!")
+    private String address;
+
+    @NotEmpty(message = "Location is required!")
+    private String phoneNumber;
 
 //    Many Requests can be for one Service
     @ManyToOne
@@ -35,9 +44,32 @@ public class Request {
     private Date updatedAt;
 
 
-
 //=====------------_________------------________________
 
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getProblemDesc() {
+        return problemDesc;
+    }
+
+    public void setProblemDesc(String problemDesc) {
+        this.problemDesc = problemDesc;
+    }
 
     @PrePersist
     protected void onCreate(){

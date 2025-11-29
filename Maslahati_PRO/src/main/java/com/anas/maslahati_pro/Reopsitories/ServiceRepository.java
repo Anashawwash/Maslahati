@@ -15,4 +15,6 @@ public interface ServiceRepository extends CrudRepository<ServiceTypes,String> {
     List<ServiceTypes> findAllByUser(User user);
 
     List<ServiceTypes> findAll();
+
+    ServiceTypes findByid(Long id);
 }

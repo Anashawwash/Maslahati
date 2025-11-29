@@ -2,9 +2,11 @@ package com.anas.maslahati_pro.Controllers;
 
 
 import com.anas.maslahati_pro.Models.LoginUser;
+import com.anas.maslahati_pro.Models.Request;
 import com.anas.maslahati_pro.Models.ServiceTypes;
 import com.anas.maslahati_pro.Models.User;
 import com.anas.maslahati_pro.Reopsitories.ServiceRepository;
+import com.anas.maslahati_pro.Services.RequestServices;
 import com.anas.maslahati_pro.Services.ServiceServices;
 import com.anas.maslahati_pro.Services.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -13,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MainController {
@@ -26,9 +25,9 @@ public class MainController {
 
     @Autowired
     ServiceServices serviceServ;
-    @Autowired
-    private ServiceRepository serviceRepository;
 
+    @Autowired
+    RequestServices  requestServ;
 
 
 
@@ -106,7 +105,7 @@ public class MainController {
             return "redirect:/homeuser";
         }
         model.addAttribute("worker", user);
-        int many = serviceRepository.findAllByUser(user).size();
+        int many = serviceServ.findAllByUser(user).size();
         model.addAttribute("many", many);
         return "worker_dashboard";
     }
@@ -186,6 +185,32 @@ public class MainController {
         else {
             serviceServ.saveService(service);
             return "redirect:/homeworker";
+        }
+    }
+
+
+    @GetMapping("/booking/{id}")
+    public String booking(@PathVariable("id") Long id, HttpSession session , Model model , @ModelAttribute("bookingForm")Request request) {
+        User user = (User) session.getAttribute("User");
+        if (user != null && user.isCraftsman()) {
+            return "redirect:/homeworker";
+        }
+        if (user == null ) {
+            return "redirect:/";
+        }
+        model.addAttribute("serv",serviceServ.findById(id));
+        model.addAttribute("User",user);
+        return "Booking";
+    }
+
+    @PostMapping("/booking")
+    public String Booking(@Valid @ModelAttribute("booking") Request request,BindingResult result,HttpSession session) {
+        if (result.hasErrors()) {
+            return "Booking";
+        }
+        else {
+            requestServ.saveRequest(request);
+            return "redirect:/homeuser";
         }
     }
 }
