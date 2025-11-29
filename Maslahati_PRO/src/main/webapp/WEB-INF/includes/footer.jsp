@@ -79,7 +79,7 @@
 
         <!-- Bottom copyright -->
         <div class="border-t border-gray-800 mt-14 pt-8 text-center text-gray-400 text-sm">
-            © 2024 مصلحاتي. جميع الحقوق محفوظة.
+            © 2025 مصلحاتي. جميع الحقوق محفوظة.
         </div>
 
     </div>

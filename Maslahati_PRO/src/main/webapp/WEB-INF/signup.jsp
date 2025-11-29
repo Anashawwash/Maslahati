@@ -15,8 +15,12 @@
 <div class="flex min-h-screen">
 
     <!-- Left Banner -->
-    <div class="w-1/2 relative hidden md:block">
+    <div class="w-1/2 relative hidden md:block bg-cover bg-center"
+         style="background-image: url('/images/craftsman.jpg'); background-color: #1a1a1a;">
+
+        <!-- طبقة التعتيم -->
         <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+
         <div class="absolute top-1/4 left-12 text-white">
             <h1 class="text-5xl font-bold mb-4">🛠️ مصلحــاتي</h1>
             <h2 class="text-3xl font-semibold mb-4">Join Us Today</h2>
@@ -25,6 +29,7 @@
             </p>
         </div>
     </div>
+
 
     <!-- Right Form -->
     <div class="flex-1 flex items-center justify-center px-4">
