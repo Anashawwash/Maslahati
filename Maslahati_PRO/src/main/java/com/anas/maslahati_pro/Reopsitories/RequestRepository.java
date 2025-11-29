@@ -9,7 +9,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface RequestRepository extends JpaRepository<Request,Integer> {
+public interface RequestRepository extends JpaRepository<Request,Long> {
 
     List<Request> findAll();
+
+    List<Request> findAllByUserId(Long id);
+
 }

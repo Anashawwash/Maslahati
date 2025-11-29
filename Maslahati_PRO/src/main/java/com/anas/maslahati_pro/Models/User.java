@@ -49,6 +49,7 @@ public class User {
     @NotEmpty(message = "Location is required!")
     private String location;
 
+
     // Confirm Password (Not saved in DB)
     @Transient
     @NotEmpty(message = "Confirm password is required!")

@@ -30,7 +30,7 @@ public class ServiceTypes{
     private String description;
 
 
-    private  Integer doneOrders;
+    private  Integer doneOrders = 0;
 
 //    more than one service will be related for more than one user
     @ManyToOne
@@ -45,6 +45,8 @@ public class ServiceTypes{
     @OneToMany(mappedBy = "reviewed",cascade = CascadeType.ALL)
     private List<Review> reviews =  new ArrayList<>();
 
+    private Integer avareg = 0;
+
     @Column(updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createdAt;
@@ -57,6 +59,14 @@ public class ServiceTypes{
 
 //    -----------------Starting the methods _____________----------____________--------________
 
+
+    public Integer getAvareg() {
+        return avareg;
+    }
+
+    public void setAvareg(Integer avareg) {
+        this.avareg = avareg;
+    }
 
     public Integer getDoneOrders() {
         return doneOrders;
@@ -71,7 +81,7 @@ public class ServiceTypes{
     }
 
     public void setExperienceYear(String experienceYear) {
-        this.experienceYear = experienceYear;
+        this.experienceYear = experienceYear + 1;
     }
 
     public List<Request> getRequests() {

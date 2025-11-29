@@ -67,7 +67,6 @@
 
             <form:hidden path="user" value="${User.id}"/>
             <form:hidden path="service" value="${serv.id}"/>
-
             <!-- Address Field -->
             <div>
                 <label for="address" class="form-label flex items-center">
@@ -81,7 +80,6 @@
                 <form:input path="address" id="address" value="${User.location}" type="text" placeholder="أدخل العنوان الكامل" class="form-input text-right" />
                 <form:errors path="address" cssClass="text-red-500 text-sm mt-1" />
             </div>
-
             <!-- Phone Number Field -->
             <div>
                 <label for="phoneNumber" class="form-label">رقم الجوال</label>
@@ -89,7 +87,6 @@
                 <form:input path="phoneNumber" value="${User.phoneNumber}" id="phoneNumber" type="tel" placeholder="05XXXXXXXX" class="form-input text-left" />
                 <form:errors path="phoneNumber" cssClass="text-red-500 text-sm mt-1" />
             </div>
-
             <!-- Problem Description Field -->
             <div>
                 <label for="problemDescription" class="form-label flex items-center">
@@ -102,7 +99,6 @@
                 <form:textarea path="problemDesc" id="problemDescription" rows="4" placeholder="... اشرح المشكلة بالتفصيل" class="form-textarea text-right" />
                 <form:errors path="problemDesc" cssClass="text-red-500 text-sm mt-1" />
             </div>
-
             <!-- Buttons (Form Footer) -->
             <div class="flex justify-end space-x-4 space-x-reverse pt-4">
                 <!-- Cancel Button -->
@@ -115,7 +111,6 @@
                     تأكيد الحجز
                 </button>
             </div>
-
         </form:form>
     </div>
 </div>
