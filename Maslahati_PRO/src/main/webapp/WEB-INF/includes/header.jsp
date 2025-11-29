@@ -8,7 +8,7 @@
             <nav class="flex gap-8">
                 <a href="/homepage" class="hover:underline hover:text-blue-600 nav-link">الرئيسية</a>
                 <a href="/login" class="nav-link">تسجيل الدخول</a>
-                <a href="register/choice" class="nav-link">تسجيل حساب</a>
+                <a href="/#shoce" class="nav-link">تسجيل حساب</a>
             </nav>
 
             <!-- Logo -->

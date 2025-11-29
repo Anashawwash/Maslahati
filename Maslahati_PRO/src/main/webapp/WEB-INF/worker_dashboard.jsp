@@ -8,7 +8,6 @@
 </head>
 
 <body>
-<jsp:include page="includes/header.jsp" />
 <div class="bg-gray-100 flex" dir="rtl">
     <div class="w-64 h-screen bg-blue-900 text-white flex flex-col p-6">
         <h2 class="text-2xl font-bold mb-10">🛠️ لوحة الحرفي</h2>
