@@ -13,7 +13,7 @@
         <h2 class="text-2xl font-bold mb-10">🛠️ لوحة الحرفي</h2>
 
         <a class="py-2 mb-2 hover:bg-blue-700 rounded px-3" href="#">تعديل الملف الشخصي</a>
-        <a class="py-2 mb-2 hover:bg-blue-700 rounded px-3" href="#">عرض الطلبات</a>
+        <a class="py-2 mb-2 hover:bg-blue-700 rounded px-3" href="/servreq">عرض الطلبات</a>
         <a class="py-2 mb-2 hover:bg-blue-700 rounded px-3" href="#">التقييمات</a>
         <a class="py-2 mb-2 hover:bg-blue-700 rounded px-3" href="/addservice">إضافة خدمة جديدة</a>
 
