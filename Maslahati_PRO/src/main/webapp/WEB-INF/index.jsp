@@ -132,7 +132,6 @@
                 </a>
             </div>
 
-            <!-- Worker Card -->
             <div class="bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 group">
                 <div class="h-64 rounded-2xl overflow-hidden mb-6">
                     <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
@@ -160,7 +159,6 @@
     </div>
 </main>
 
-<!-- Include Footer -->
 <jsp:include page="includes/footer.jsp" />
 
 <!-- Slider Script -->
@@ -170,7 +168,7 @@
 
     const usersCountFinal = 115;
     const workersCountFinal = 85;
-    const activeWorkersCountFinal = 85;
+    const activeWorkersCountFinal = 78;
 
     const usersCountEl = document.getElementById("usersCount");
     const workersCountEl = document.getElementById("workersCount");
