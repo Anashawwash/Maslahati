@@ -1,10 +1,23 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+    String lang = request.getParameter("lang");
+    if(lang == null) { lang = "ar"; }
 
-<footer class="bg-gray-900 text-white mt-20" dir="rtl">
+    // النصوص حسب اللغة
+    String platformDesc = lang.equals("en") ? "A trusted platform to connect with the best craftsmen in Palestine." : "منصة موثوقة للتواصل مع أفضل الصنايعية في فلسطين.";
+    String quickLinks = lang.equals("en") ? "Quick Links" : "روابط سريعة";
+    String aboutUs = lang.equals("en") ? "About Us" : "من نحن";
+    String howItWorks = lang.equals("en") ? "How It Works" : "كيف يعمل الموقع";
+    String contactUs = lang.equals("en") ? "Contact Us" : "تواصل معنا";
+    String locationText = lang.equals("en") ? "Palestine, West Bank" : "فلسطين، الضفة الغربية";
+    String copyright = lang.equals("en") ? "© 2025 Moslahati. All rights reserved." : "© 2025 مصلحاتي. جميع الحقوق محفوظة.";
+%>
+
+<footer class="bg-gray-900 text-white mt-20" dir="<%= lang.equals("ar") ? "rtl" : "ltr" %>">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
 
-        <!-- Grid (3 columns on md+, 1 column on mobile) -->
-        <div class="grid grid-cols-1 md:grid-cols-3  gap-12">
+        <!-- Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
 
             <!-- Logo & Description -->
             <div class="space-y-4 text-center md:text-center">
@@ -18,29 +31,24 @@
                             <path d="m20.91 11.7-1.25-1.25c-.6-.6-.93-1.4-.93-2.25v-.86L16.01 4.6A5.56 5.56 0 0 0 12.07 3H9l.92.82A6.18 6.18 0 0 1 12 8.4v1.56l2 2h2.47l2.26 1.91"/>
                         </svg>
                     </div>
-                    <span class="text-2xl font-bold">مصلحاتي</span>
+                    <span class="text-2xl font-bold"><%= lang.equals("en") ? "Moslahati" : "مصلحاتي" %></span>
                 </div>
-
-                <p class="text-gray-400 md:text-center leading-relaxed ">
-                    منصة موثوقة للتواصل مع أفضل الصنايعية في فلسطين.
-                </p>
+                <p class="text-gray-400 md:text-center leading-relaxed"><%= platformDesc %></p>
             </div>
 
             <!-- Quick Links -->
             <div class="space-y-6 text-center md:text-center">
-                <h4 class="text-xl font-semibold">روابط سريعة</h4>
+                <h4 class="text-xl font-semibold"><%= quickLinks %></h4>
                 <ul class="space-y-3 text-gray-400 text-sm">
-                    <li><a href="#" class="hover:text-white">من نحن</a></li>
-                    <li><a href="#a" class="hover:text-white">كيف يعمل الموقع</a></li>
+                    <li><a href="#" class="hover:text-white"><%= aboutUs %></a></li>
+                    <li><a href="#a" class="hover:text-white"><%= howItWorks %></a></li>
                 </ul>
             </div>
 
             <!-- Contact Section -->
-            <div class="space-y-6 text-center  md:text-center">
-                <h4 class="text-xl font-semibold">تواصل معنا</h4>
+            <div class="space-y-6 text-center md:text-center">
+                <h4 class="text-xl font-semibold"><%= contactUs %></h4>
                 <ul class="space-y-4 text-gray-400 text-sm">
-
-                    <!-- Phone -->
                     <li class="flex items-center justify-center md:text-center gap-3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
                              fill="none" stroke="currentColor" stroke-width="2"
@@ -49,8 +57,6 @@
                         </svg>
                         <span>+970 566 548 430</span>
                     </li>
-
-                    <!-- Email -->
                     <li class="flex items-center justify-center md:text-center gap-3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
                              fill="none" stroke="currentColor" stroke-width="2"
@@ -60,8 +66,6 @@
                         </svg>
                         <span>Axsosstudent@gmail.com</span>
                     </li>
-
-                    <!-- Location -->
                     <li class="flex items-center justify-center md:text-center gap-3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
                              fill="none" stroke="currentColor" stroke-width="2"
@@ -69,9 +73,8 @@
                             <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
                             <circle cx="12" cy="10" r="3"/>
                         </svg>
-                        <span>فلسطين، الضفة الغربية</span>
+                        <span><%= locationText %></span>
                     </li>
-
                 </ul>
             </div>
 
@@ -79,7 +82,7 @@
 
         <!-- Bottom copyright -->
         <div class="border-t border-gray-800 mt-14 pt-8 text-center text-gray-400 text-sm">
-            © 2025 مصلحاتي. جميع الحقوق محفوظة.
+            <%= copyright %>
         </div>
 
     </div>
