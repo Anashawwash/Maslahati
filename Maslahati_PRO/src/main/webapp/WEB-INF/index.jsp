@@ -34,40 +34,33 @@
             منصة موثوقة تربطك بأمهر الحرفيين والصنايعية المحترفين
         </p>
 
-        <!-- Search Bar -->
-        <div class="w-full max-w-4xl bg-white rounded-2xl shadow-2xl p-3 flex gap-2">
-            <a href="workers-list.jsp" class="bg-[#2563eb] text-white px-8 py-4 rounded-xl hover:bg-[#1d4ed8] transition-colors flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="11" cy="11" r="8"/>
-                    <path d="m21 21-4.3-4.3"/>
-                </svg>
-                <span>بحث</span>
-            </a>
-            <div class="flex-1 flex items-center gap-3 px-4 border-l-2 border-gray-200">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400">
-                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
-                    <circle cx="12" cy="10" r="3"/>
-                </svg>
-                <input type="text" placeholder="أدخل موقعك" class="flex-1 outline-none text-right" />
-            </div>
-            <div class="flex-1 flex items-center gap-3 px-4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400">
-                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
-                </svg>
-                <select class="flex-1 outline-none text-right cursor-pointer bg-transparent">
-                    <option>اختر التخصص</option>
-                    <option>سباك</option>
-                    <option>كهربائي</option>
-                    <option>نجار</option>
-                    <option>دهان</option>
-                    <option>حداد</option>
-                </select>
+        <!-- ===== Slider Section ===== -->
+        <div class="w-full max-w-3xl overflow-hidden rounded-2xl shadow-2xl mx-auto mb-6">
+            <div id="slider" class="flex transition-transform duration-700">
+
+                <div class="min-w-full bg-blue-600 p-10 text-center text-white rounded-2xl">
+                    <h2 class="text-3xl font-bold mb-3">عدد الأشخاص الباحثين عن خدمة</h2>
+                    <p id="usersCount" class="text-6xl font-extrabold">0</p>
+                </div>
+
+                <div class="min-w-full bg-green-600 p-10 text-center text-white rounded-2xl">
+                    <h2 class="text-3xl font-bold mb-3">عدد الصنايعية المنشورين خدماتهم</h2>
+                    <p id="workersCount" class="text-6xl font-extrabold">0</p>
+                </div>
+
             </div>
         </div>
+
+        <!-- Additional Box for Workers Count -->
+        <div class="w-full max-w-3xl mx-auto">
+            <div class="bg-yellow-400 text-gray-900 rounded-2xl p-8 text-center shadow-xl">
+                <h3 class="text-2xl font-bold mb-2">عدد الصنايعية النشطين</h3>
+                <p id="activeWorkersCount" class="text-5xl font-extrabold">0</p>
+            </div>
+        </div>
+
     </div>
 </div>
-
-
 
 <!-- How It Works -->
 <div id="a" class="bg-gray-50 py-20">
@@ -102,7 +95,7 @@
     </div>
 </div>
 
-<%--shoce the right account for you --%>
+<!-- Choose the Right Account -->
 <main id="shoce" class="min-h-[calc(100vh-5rem)] bg-gradient-to-br from-gray-50 to-gray-100 py-20">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
@@ -166,8 +159,52 @@
         </div>
     </div>
 </main>
+
 <!-- Include Footer -->
 <jsp:include page="includes/footer.jsp" />
+
+<!-- Slider Script -->
+<script>
+    const slider = document.getElementById("slider");
+    let index = 0;
+
+    const usersCountFinal = 142;
+    const workersCountFinal = 85;
+    const activeWorkersCountFinal = 85;
+
+    const usersCountEl = document.getElementById("usersCount");
+    const workersCountEl = document.getElementById("workersCount");
+    const activeWorkersCountEl = document.getElementById("activeWorkersCount");
+
+    function animateCounter(element, finalNumber, duration = 1500) {
+        let start = 0;
+        const increment = finalNumber / (duration / 30);
+        const counterInterval = setInterval(() => {
+            start += increment;
+            if(start >= finalNumber){
+                start = finalNumber;
+                clearInterval(counterInterval);
+            }
+            element.textContent = Math.floor(start);
+        }, 30);
+    }
+
+    function showSlide(idx) {
+        slider.style.transform = `translateX(-${idx * 100}%)`;
+        if(idx === 0) animateCounter(usersCountEl, usersCountFinal);
+        if(idx === 1) animateCounter(workersCountEl, workersCountFinal);
+    }
+
+    // Animate active workers count separately
+    animateCounter(activeWorkersCountEl, activeWorkersCountFinal);
+
+    showSlide(index);
+
+    setInterval(() => {
+        index = (index + 1) % 2;
+        showSlide(index);
+    }, 3000);
+</script>
 
 </body>
 </html>
