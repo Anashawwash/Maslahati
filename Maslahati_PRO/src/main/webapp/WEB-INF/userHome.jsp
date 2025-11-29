@@ -67,12 +67,6 @@
     </div>
 </header>
 
-<%--<div class="text-right">--%>
-<%--    <h1 class="text-3xl font-bold text-gray-900 mb-2">ابحث عن افضل العمال</h1>--%>
-<%--</div>--%>
-
-
-
 <section class="bg-white border-b border-gray-200">
     <div class="max-w-7xl mx-auto px-4 py-6">
         <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
@@ -171,7 +165,7 @@
                         </div>
                     </div>
                     <div class="flex items-center justify-between text-sm text-blue-600 border-t border-gray-200 pt-3">
-                        <a href="#" class="hover:underline">تقديم طلب خدمة</a>
+                        <a href="/booking/${serv.id}" class="hover:underline">تقديم طلب خدمة</a>
                         <span> ${serv.doneOrders}  الاعمال المنجز</span>
                     </div>
                 </div>

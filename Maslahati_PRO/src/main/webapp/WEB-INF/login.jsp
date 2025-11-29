@@ -3,10 +3,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>Maslahati | Sign In</title>
+    <title>مصلحاتي | تسجيل الدخول</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50">
@@ -20,11 +20,11 @@
         <!-- طبقة التعتيم -->
         <div class="absolute inset-0 bg-black bg-opacity-60"></div>
 
-        <div class="absolute top-1/4 left-12 text-white">
+        <div class="absolute top-1/4 left-12 text-white text-right">
             <h1 class="text-5xl font-bold mb-4">🛠️ مصلحــاتي</h1>
-            <h2 class="text-3xl font-semibold mb-4">Connect with Trusted Professionals</h2>
+            <h2 class="text-3xl font-semibold mb-4">تواصل مع أفضل الحرفيين</h2>
             <p class="max-w-sm leading-7 text-gray-200">
-                Sign in to manage your account, contact professionals, and get things fixed easily.
+                قم بتسجيل الدخول لإدارة حسابك والتواصل مع الحرفيين وإنهاء أعمالك بسهولة.
             </p>
         </div>
     </div>
@@ -36,41 +36,41 @@
 
             <!-- Navigation Tabs -->
             <div class="flex justify-center mb-8 border-b border-gray-200">
-                <a href="/login" class="text-blue-600 font-semibold border-b-2 border-blue-600 px-4 py-2">Sign In</a>
-                <a href="/#shoce" class="text-gray-500 hover:text-blue-600 px-4 py-2">Sign Up</a>
+                <a href="/login" class="text-blue-600 font-semibold border-b-2 border-blue-600 px-4 py-2">تسجيل دخول</a>
+                <a href="/signup" class="text-gray-500 hover:text-blue-600 px-4 py-2">إنشاء حساب</a>
             </div>
 
-            <h2 class="text-2xl font-bold mb-6 text-center">Sign In</h2>
+            <h2 class="text-2xl font-bold mb-6 text-center">تسجيل دخول</h2>
 
             <form:form action="/login" method="post" modelAttribute="newUser" class="space-y-4">
 
-                <!-- Hidden Role -->
-
                 <!-- Email -->
                 <div>
-                    <label class="font-medium block mb-1">Email Address</label>
+                    <label class="font-medium block mb-1">البريد الإلكتروني</label>
                     <form:input path="loginEmail" type="email"
                                 cssClass="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                placeholder="you@example.com" required="true"/>
+                                placeholder="example@email.com" required="true"/>
                     <form:errors path="loginEmail" cssClass="text-red-500 text-sm mt-1 block"/>
                 </div>
 
                 <!-- Password -->
                 <div>
-                    <label class="font-medium block mb-1">Password</label>
-                    <form:password path="confirm" cssClass="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="••••••••" required="true"/>
+                    <label class="font-medium block mb-1">كلمة المرور</label>
+                    <form:password path="confirm"
+                                   cssClass="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                   placeholder="••••••••" required="true"/>
                     <form:errors path="confirm" cssClass="text-red-500 text-sm mt-1 block"/>
                 </div>
 
                 <!-- Submit Button -->
                 <button type="submit"
                         class="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-                    Sign In
+                    تسجيل دخول
                 </button>
             </form:form>
 
             <p class="text-center text-gray-500 text-sm mt-6">
-                New to مصلحاتي؟ <a href="/signup" class="text-blue-600 font-semibold">Create a new account</a>
+                جديد في مصلحاتي؟ <a href="/signup" class="text-blue-600 font-semibold">أنشئ حساباً جديداً</a>
             </p>
 
         </div>
