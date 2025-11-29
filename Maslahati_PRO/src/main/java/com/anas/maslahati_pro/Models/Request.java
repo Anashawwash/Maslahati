@@ -34,6 +34,8 @@ public class Request {
     @JoinColumn(name = "service_id")
     private ServiceTypes Service;
 
+    private boolean status = true;
+
     private Boolean done = false;
 
     @Column(updatable = false)
@@ -44,7 +46,22 @@ public class Request {
     private Date updatedAt;
 
 
+
 //=====------------_________------------________________
+
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
 
 
     public String getPhoneNumber() {

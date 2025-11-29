@@ -17,6 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class MainController {
 
@@ -212,5 +214,22 @@ public class MainController {
             requestServ.saveRequest(request);
             return "redirect:/homeuser";
         }
+    }
+
+
+    @GetMapping("/servreq")
+    public String servreq(HttpSession session ,Model model) {
+        User user = (User) session.getAttribute("User");
+        if (user == null) {
+            return "redirect:/";
+        }
+        if (!user.isCraftsman()) {
+            return "redirect:/homeuser";
+        }
+        List<Request> r = requestServ.findAll();
+        requestServ.updateRequests(r);
+        model.addAttribute("User", user);
+        model.addAttribute("service", serviceServ.findAllByUser(user));
+        return "ServReq";
     }
 }
