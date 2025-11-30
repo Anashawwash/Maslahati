@@ -15,7 +15,7 @@ public class LocationController {
 
     @GetMapping("/reverse")
     public String reverse(@RequestParam double lat, @RequestParam double lon) {
-        System.out.println(lat + "," + lon );
         return locationService.reverseGeocode(lat, lon);
     }
+
 }

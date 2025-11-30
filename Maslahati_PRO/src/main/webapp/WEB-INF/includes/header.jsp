@@ -16,7 +16,7 @@
             <nav class="flex gap-8 items-center">
                 <a href="/homepage?lang=<%=lang%>" class="hover:underline hover:text-blue-600 nav-link"><%= homeText %></a>
                 <a href="/login?lang=<%=lang%>" class="nav-link"><%= loginText %></a>
-                <a href="/#shoce?lang=<%=lang%>" class="nav-link"><%= signupText %></a>
+                <a href="/#shoce" class="nav-link"><%= signupText %></a>
 
                 <!-- Language Switcher -->
                 <div class="ml-6 flex gap-2">
