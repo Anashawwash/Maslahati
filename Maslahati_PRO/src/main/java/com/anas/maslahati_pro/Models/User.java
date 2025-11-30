@@ -60,8 +60,9 @@ public class User {
     private boolean craftsman = false;
 
     // Relations
-    @OneToMany(mappedBy = "reviewer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "reviewer")
     private List<Review> reviews = new ArrayList<>();
+
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Request> requests = new ArrayList<>();
@@ -87,7 +88,8 @@ public class User {
         this.updatedAt = new Date();
     }
 
-    // Getters and Setters
+    // Getters and Setters_______---------________
+
 
 
     public List<Review> getReviews() {

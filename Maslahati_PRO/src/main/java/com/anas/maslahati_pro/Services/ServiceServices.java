@@ -37,19 +37,14 @@ public class ServiceServices {
         return serviceRepo.findByid(id);
     }
 
-    public void getTheRangeRate(ServiceTypes service , int i){
-        List<Review> reviews = reviewRepo.findAllReviewsByReviewed(service);
-        if (reviews.isEmpty()) {
-            service.setAvareg(i); // or null, depending on your logic
-        } else {
-            int totalRate = 0;
-            for (Review review : reviews) {
-                totalRate += review.getRating();
-            }
-            int average = totalRate / reviews.size();
-            service.setAvareg(average);
-        }
-        serviceRepo.save(service);
+    public void updateAverageRate(ServiceTypes service) {
+
+        Double avg = serviceRepo.getAverageRate(service); // get average from DB
+
+        service.setAvareg(avg);   // store inside entity
+        serviceRepo.save(service); // update database
     }
+
+
 
 }
