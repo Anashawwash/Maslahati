@@ -179,14 +179,13 @@
     let index = 0;
 
     const usersCountFinal = 115;
-    const workersCountFinal = 85;
     const activeWorkersCountFinal = 78;
 
     const usersCountEl = document.getElementById("usersCount");
     const workersCountEl = document.getElementById("workersCount");
     const activeWorkersCountEl = document.getElementById("activeWorkersCount");
 
-    function animateCounter(element, finalNumber, duration = 1500) {
+    function animateCounter(element, finalNumber, duration = 1900) {
         let start = 0;
         const increment = finalNumber / (duration / 30);
         const counterInterval = setInterval(() => {

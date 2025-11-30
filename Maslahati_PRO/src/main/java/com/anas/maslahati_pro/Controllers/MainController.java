@@ -2,6 +2,7 @@ package com.anas.maslahati_pro.Controllers;
 
 
 import com.anas.maslahati_pro.Models.*;
+import com.anas.maslahati_pro.Reopsitories.ServiceRepository;
 import com.anas.maslahati_pro.Services.RequestServices;
 import com.anas.maslahati_pro.Services.ReviewServices;
 import com.anas.maslahati_pro.Services.ServiceServices;
@@ -31,7 +32,6 @@ public class MainController {
 
     @Autowired
     ReviewServices reviewServ;
-
 
 
     @GetMapping("/logout")
@@ -289,20 +289,20 @@ public class MainController {
             return "redirect:/homeworker";
         }
         model.addAttribute("User", user);
-        model.addAttribute("request",requestServ.findByID(id));
+        model.addAttribute("request", requestServ.findByID(id));
         return "ReviewPage";
     }
 
     @PostMapping("/reviews/save/{id}")
-    public String saveReview(@PathVariable("id") Long id,@Valid @ModelAttribute("newReview") Review review, BindingResult result,HttpSession session, Model model){
+    public String saveReview(@PathVariable("id") Long id, @Valid @ModelAttribute("newReview") Review review, BindingResult result, HttpSession session, Model model) {
         User user = (User) session.getAttribute("User");
         if (result.hasErrors()) {
             return "ReviewPage";
         }
-        Request request =  requestServ.findByID(id);
+        Request request = requestServ.findByID(id);
+        review.setId(null);
         ServiceTypes service = review.getReviewed();
-        int y = review.getRating();
-        serviceServ.getTheRangeRate(service , y);
+        serviceServ.updateAverageRate(service);
         request.setDone(true);
         service.setDoneOrders(1);
         serviceServ.saveService(service);
@@ -338,6 +338,4 @@ public class MainController {
         model.addAttribute("services", serviceServ.findAllByUser(user)); // إرسال خدماته
         return "worker_user_prufile"; // اسم صفحة JSP أو HTML الخاصة بالبروفايل
     }
-
-
 }

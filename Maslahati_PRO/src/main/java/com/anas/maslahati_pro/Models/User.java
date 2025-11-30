@@ -130,7 +130,6 @@ public class User {
         this.services = services;
     }
 
-    public Long getId() { return id; }
 
     public void setId(Long id) { this.id = id; }
 
