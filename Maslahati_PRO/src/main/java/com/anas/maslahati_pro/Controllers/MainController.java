@@ -2,7 +2,6 @@ package com.anas.maslahati_pro.Controllers;
 
 
 import com.anas.maslahati_pro.Models.*;
-import com.anas.maslahati_pro.Reopsitories.ServiceRepository;
 import com.anas.maslahati_pro.Services.RequestServices;
 import com.anas.maslahati_pro.Services.ReviewServices;
 import com.anas.maslahati_pro.Services.ServiceServices;
@@ -12,7 +11,6 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +27,7 @@ public class MainController {
     ServiceServices serviceServ;
 
     @Autowired
-    RequestServices  requestServ;
+    RequestServices requestServ;
 
     @Autowired
     ReviewServices reviewServ;
@@ -101,7 +99,7 @@ public class MainController {
 
 
     @GetMapping("/homeworker")
-    public String homeworker(HttpSession session ,Model model) {
+    public String homeworker(HttpSession session, Model model) {
         User user = (User) session.getAttribute("User");
         if (user == null) {
             return "redirect:/";
@@ -117,7 +115,7 @@ public class MainController {
 
 
     @GetMapping("/homeuser")
-    public String homeusera(HttpSession session,Model model) {
+    public String homeuser(HttpSession session, Model model) {
         User user = (User) session.getAttribute("User");
         if (user == null) {
             return "redirect:/";
@@ -167,14 +165,13 @@ public class MainController {
     }
 
 
-
     @GetMapping("/addservice")
-    public String addservice(HttpSession session ,Model model,@ModelAttribute("service")ServiceTypes servecic ) {
+    public String addservice(HttpSession session, Model model, @ModelAttribute("service") ServiceTypes servecic) {
         User user = (User) session.getAttribute("User");
         if (user == null) {
             return "redirect:/";
         }
-        if (user != null  && !user.isCraftsman()) {
+        if (user != null && !user.isCraftsman()) {
             return "redirect:/homeuser";
         }
         model.addAttribute("worker", user);
@@ -183,11 +180,10 @@ public class MainController {
 
 
     @PostMapping("/addservice")
-    public String addservice(@Valid @ModelAttribute("service") ServiceTypes service, BindingResult result){
+    public String addservice(@Valid @ModelAttribute("service") ServiceTypes service, BindingResult result) {
         if (result.hasErrors()) {
             return "addService";
-        }
-        else {
+        } else {
             serviceServ.saveService(service);
             return "redirect:/homeworker";
         }
@@ -195,27 +191,26 @@ public class MainController {
 
 
     @GetMapping("/booking/{id}")
-    public String booking(@PathVariable("id") Long id, HttpSession session , Model model , @ModelAttribute("bookingForm")Request request) {
+    public String booking(@PathVariable("id") Long id, HttpSession session, Model model, @ModelAttribute("bookingForm") Request request) {
         User user = (User) session.getAttribute("User");
         if (user != null && user.isCraftsman()) {
             return "redirect:/homeworker";
         }
-        if (user == null ) {
+        if (user == null) {
             return "redirect:/";
         }
         ServiceTypes service = serviceServ.findById(id);
-        model.addAttribute("serv",service);
-        model.addAttribute("User",user);
-        model.addAttribute("review",reviewServ.findAllReviewsByReviewed(service));
+        model.addAttribute("serv", service);
+        model.addAttribute("User", user);
+        model.addAttribute("review", reviewServ.findAllReviewsByReviewed(service));
         return "Booking";
     }
 
     @PostMapping("/booking")
-    public String Booking(@Valid @ModelAttribute("booking") Request request,BindingResult result,HttpSession session) {
+    public String Booking(@Valid @ModelAttribute("booking") Request request, BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
             return "Booking";
-        }
-        else {
+        } else {
             requestServ.saveRequest(request);
             return "redirect:/homeuser";
         }
@@ -223,7 +218,7 @@ public class MainController {
 
 
     @GetMapping("/servreq")
-    public String servreq(HttpSession session ,Model model) {
+    public String servreq(HttpSession session, Model model) {
         User user = (User) session.getAttribute("User");
         if (user == null) {
             return "redirect:/";
@@ -240,7 +235,7 @@ public class MainController {
 
 
     @GetMapping("/requests/accept/{id}")
-    public String AcceptRequest(@PathVariable("id") Long id, HttpSession session, Model model){
+    public String AcceptRequest(@PathVariable("id") Long id, HttpSession session, Model model) {
         User user = (User) session.getAttribute("User");
         if (user == null) {
             return "redirect:/";
@@ -249,7 +244,7 @@ public class MainController {
             return "redirect:/homeuser";
         }
         System.out.println("________-------------------________________");
-        Request request =  requestServ.findByID(id);
+        Request request = requestServ.findByID(id);
         request.setInProgress(true);
         requestServ.saveRequest(request);
         return "redirect:/servreq";
@@ -257,7 +252,7 @@ public class MainController {
 
 
     @GetMapping("/myrequests")
-    public String myrequests(HttpSession session ,Model model){
+    public String myrequests(HttpSession session, Model model) {
         User user = (User) session.getAttribute("User");
         if (user == null) {
             return "redirect:/";
@@ -272,7 +267,7 @@ public class MainController {
 
 
     @GetMapping("/requests/cancel/{id}")
-    public String cancelRequest(@PathVariable("id") Long id, HttpSession session, Model model){
+    public String cancelRequest(@PathVariable("id") Long id, HttpSession session, Model model) {
         User user = (User) session.getAttribute("User");
         if (user == null) {
             return "redirect:/";
@@ -285,7 +280,7 @@ public class MainController {
     }
 
     @GetMapping("/requests/add/review/{id}")
-    public String reviewRequest(@ModelAttribute("newReview")Review review, @PathVariable("id") Long id, HttpSession session, Model model){
+    public String reviewRequest(@ModelAttribute("newReview") Review review, @PathVariable("id") Long id, HttpSession session, Model model) {
         User user = (User) session.getAttribute("User");
         if (user == null) {
             return "redirect:/";
@@ -305,9 +300,9 @@ public class MainController {
             return "ReviewPage";
         }
         Request request =  requestServ.findByID(id);
-        review.setId(null);
         ServiceTypes service = review.getReviewed();
-        serviceServ.updateAverageRate(service );
+        int y = review.getRating();
+        serviceServ.getTheRangeRate(service , y);
         request.setDone(true);
         service.setDoneOrders(1);
         serviceServ.saveService(service);
@@ -315,4 +310,34 @@ public class MainController {
         reviewServ.saveReview(review);
         return "redirect:/homeuser";
     }
+
+
+    @GetMapping("/profile/user")
+    public String profileUser(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("User");
+        if (user == null) {
+            return "redirect:/"; // إعادة توجيه إذا لم يكن مسجل الدخول
+        }
+        if (user.isCraftsman()) {
+            return "redirect:/profile/worker"; // إعادة توجيه للصنايعي إذا كان هو من سجل الدخول
+        }
+        model.addAttribute("user", user); // إرسال بيانات اليوزر للصفحة
+        return "user_profile"; // اسم صفحة JSP أو HTML الخاصة بالبروفايل
+    }
+
+    @GetMapping("/profile/worker")
+    public String profileWorker(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("User");
+        if (user == null) {
+            return "redirect:/"; // إعادة توجيه إذا لم يكن مسجل الدخول
+        }
+        if (!user.isCraftsman()) {
+            return "redirect:/profile/user"; // إعادة توجيه للـ User العادي
+        }
+        model.addAttribute("worker", user); // إرسال بيانات الصنايعي
+        model.addAttribute("services", serviceServ.findAllByUser(user)); // إرسال خدماته
+        return "worker_user_prufile"; // اسم صفحة JSP أو HTML الخاصة بالبروفايل
+    }
+
+
 }

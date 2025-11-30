@@ -31,9 +31,10 @@ public class User {
     @Email(message = "Email must be valid")
     private String email;
 
-    // Password
-    @NotEmpty(message = "Password is required!")
-    @Size(min = 8, max = 128, message = "Password must be between 8 and 128 characters")
+
+
+    @NotEmpty(message="Password is required!")
+    @Size(min=8, max=128, message="Password must be between 8 and 128 characters")
     private String password;
 
     // Phone Number
@@ -60,17 +61,27 @@ public class User {
     private boolean craftsman = false;
 
     // Relations
-    @OneToMany(mappedBy = "reviewer")
+    @OneToMany(mappedBy = "reviewer", cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
-
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Request> requests = new ArrayList<>();
 
+
+
+//  One user can have More than one service
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<ServiceTypes> services = new ArrayList<>();
 
-    // Dates
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
     @Column(updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createdAt;
@@ -78,6 +89,7 @@ public class User {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date updatedAt;
 
+//    -----------------Starting the methods _____________----------____________--------________
     @PrePersist
     protected void onCreate() {
         this.createdAt = new Date();
@@ -88,9 +100,11 @@ public class User {
         this.updatedAt = new Date();
     }
 
-    // Getters and Setters_______---------________
+    // Getters and Setters
 
-
+    public Long getId() {
+        return id;
+    }
 
     public List<Review> getReviews() {
         return reviews;
