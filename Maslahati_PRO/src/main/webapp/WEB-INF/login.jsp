@@ -42,6 +42,17 @@
 
             <h2 class="text-2xl font-bold mb-6 text-center">تسجيل دخول</h2>
 
+            <!-- Go Back Button -->
+            <div class="mb-4">
+                <a href="/">
+                <button type="button"
+                        class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-2 px-4 rounded transition">
+                    العودة
+                </button>
+
+                </a>
+            </div>
+
             <form:form action="/login" method="post" modelAttribute="newUser" class="space-y-4">
 
                 <!-- Email -->

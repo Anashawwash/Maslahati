@@ -42,7 +42,15 @@
             </div>
 
             <h2 class="text-2xl font-bold mb-6 text-center">إنشاء حساب</h2>
+            <div class="mb-4">
+                <a href="/">
+                    <button type="button"
+                            class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-2 px-4 rounded transition">
+                        العودة
+                    </button>
 
+                </a>
+            </div>
             <form:form action="/signup" method="post" modelAttribute="newUser" class="space-y-4">
 
                 <form:hidden path="craftsman" value="${type}" />
@@ -146,7 +154,7 @@
 </div>
 
 
-<script>
+<script type="text/javascript" isELIgnored="true">
     document.addEventListener("DOMContentLoaded", () => {
         const mapPopup = document.getElementById("map-popup");
         const locationBtn = document.getElementById("open-map");
@@ -198,13 +206,13 @@
             const lon = Number(pos.lng);
 
             console.log("lat:", lat, "lon:", lon);
-            console.log("FETCH URL:", `/api/location/reverse?lat=${lat}&lon=${lon}`);
+            console.log(`URL: /api/location/reverse?lat=\${lat}&lon=\${lon}`);
 
             latInput.value = lat;
             lonInput.value = lon;
 
             try {
-                const response = await fetch(`/api/location/reverse?lat=${lat}&lon=${lon}`);
+                const response = await fetch(`/api/location/reverse?lat=\${lat}&lon=\${lon}`);
                 const data = await response.json();
 
                 console.log("Reverse:", data);
@@ -214,6 +222,8 @@
                 console.error("Error:", error);
                 locationInput.value = "خطأ أثناء جلب الموقع";
             }
+            mapPopup.classList.add("hidden");
+
         });
 
 

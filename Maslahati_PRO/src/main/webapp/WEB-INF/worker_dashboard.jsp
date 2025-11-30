@@ -61,7 +61,7 @@
 
             <div class="bg-white shadow rounded-xl p-6 text-center">
                 <h3 class="text-lg font-bold text-gray-700" id="completedOrders">الطلبات المكتملة</h3>
-                <p class="text-4xl font-extrabold text-green-600 mt-3">0999</p>
+                <p class="text-4xl font-extrabold text-green-600 mt-3">${worker.userName}</p>
             </div>
 
         </div>
