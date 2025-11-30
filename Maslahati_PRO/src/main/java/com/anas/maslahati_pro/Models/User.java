@@ -1,11 +1,11 @@
 package com.anas.maslahati_pro.Models;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,19 +50,20 @@ public class User {
     @NotEmpty(message = "Location is required!")
     private String location;
 
+
+    // Confirm Password (Not saved in DB)
     @Transient
     @NotEmpty(message = "Confirm password is required!")
     @Size(min = 8, max = 128, message = "Confirm password must be between 8 and 128 characters")
     private String confirmPassword;
 
+    // Role: USER or WORKER
     private boolean craftsman = false;
 
-
-//  One user can review More than one services
+    // Relations
     @OneToMany(mappedBy = "reviewer", cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
 
-//    user can have more than one request
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Request> requests = new ArrayList<>();
 
@@ -93,11 +94,13 @@ public class User {
     protected void onCreate() {
         this.createdAt = new Date();
     }
+
     @PreUpdate
     protected void onUpdate() {
         this.updatedAt = new Date();
     }
 
+    // Getters and Setters
 
     public Long getId() {
         return id;
@@ -127,6 +130,7 @@ public class User {
         this.services = services;
     }
 
+    public Long getId() { return id; }
 
     public void setId(Long id) { this.id = id; }
 

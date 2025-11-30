@@ -50,10 +50,7 @@
 <jsp:include page="includes/header.jsp" />
 
 <!-- Language Switcher -->
-<div class="flex justify-end gap-4 p-4">
-    <a href="?lang=ar" class="px-3 py-1 bg-blue-500 text-white rounded">العربية</a>
-    <a href="?lang=en" class="px-3 py-1 bg-gray-200 rounded">English</a>
-</div>
+
 
 <!-- Hero Section -->
 <div class="relative h-[600px] overflow-hidden">
