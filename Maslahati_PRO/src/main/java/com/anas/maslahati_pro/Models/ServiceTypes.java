@@ -45,7 +45,7 @@ public class ServiceTypes{
     @OneToMany(mappedBy = "reviewed",cascade = CascadeType.ALL)
     private List<Review> reviews =  new ArrayList<>();
 
-    private Integer avareg = 0;
+    private double avareg = 0;
 
     @Column(updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -60,11 +60,11 @@ public class ServiceTypes{
 //    -----------------Starting the methods _____________----------____________--------________
 
 
-    public Integer getAvareg() {
+    public double getAvareg() {
         return avareg;
     }
 
-    public void setAvareg(Integer avareg) {
+    public void setAvareg(double avareg) {
         this.avareg = avareg;
     }
 
@@ -73,7 +73,7 @@ public class ServiceTypes{
     }
 
     public void setDoneOrders(Integer doneOrders) {
-        this.doneOrders = doneOrders;
+        this.doneOrders += 1;
     }
 
     public String getExperienceYear() {
@@ -104,6 +104,7 @@ public class ServiceTypes{
     protected void onCreate(){
         this.createdAt = new Date();
     }
+
     @PreUpdate
     protected void onUpdate(){
         this.updatedAt = new Date();

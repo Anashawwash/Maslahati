@@ -7,6 +7,7 @@ import com.anas.maslahati_pro.Services.RequestServices;
 import com.anas.maslahati_pro.Services.ReviewServices;
 import com.anas.maslahati_pro.Services.ServiceServices;
 import com.anas.maslahati_pro.Services.UserService;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -304,12 +305,12 @@ public class MainController {
             return "ReviewPage";
         }
         Request request =  requestServ.findByID(id);
+        review.setId(null);
         ServiceTypes service = review.getReviewed();
-        int y = review.getRating();
-        serviceServ.getTheRangeRate(service , y);
+        serviceServ.updateAverageRate(service );
         request.setDone(true);
-        Integer i = 1;
-        service.setDoneOrders(i);
+        service.setDoneOrders(1);
+        serviceServ.saveService(service);
         request.setInProgress(false);
         reviewServ.saveReview(review);
         return "redirect:/homeuser";
