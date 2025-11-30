@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -30,16 +31,42 @@
     </style>
 </head>
 <body class="bg-gray-50" dir="rtl">
-<jsp:include page="includes/header.jsp" />
+
 <!-- Header Section -->
-<header class="bg-white border-b border-gray-200">
-    <div class="max-w-7xl mx-auto px-4 py-8">
-        <div class="text-right">
-            <h1 class="text-3xl font-bold text-gray-900 mb-2">الصناعية المتاحة</h1>
-            <p class="text-gray-600 text-sm">أعلن عن أفضل الصناعيين في منطقتك</p>
+<header class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="flex items-center justify-between h-20">
+
+            <!-- Logout Button -->
+            <a href="/logout"
+               class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md font-medium transition">
+                تسجيل الخروج
+            </a>
+
+            <!-- Title Center -->
+            <h1 class="text-2xl font-bold text-gray-900 text-center">
+                ابحث عن افضل العمال
+            </h1>
+
+            <!-- Logo Section -->
+            <a href="/homeuser" class="flex items-center gap-3 hover:opacity-80 transition">
+                <span class="text-xl font-bold text-gray-900">مصلحاتي</span>
+                <div class="w-12 h-12 bg-[#2563eb] rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="text-white">
+                        <path d="m15 12-8.5 8.5c-.83.83-2.17.83-3 0 0 0 0 0 0 0a2.12 2.12 0 0 1 0-3L12 9"/>
+                        <path d="M17.64 15 22 10.64"/>
+                        <path d="m20.91 11.7-1.25-1.25c-.6-.6-.93-1.4-.93-2.25v-.86L16.01 4.6a5.56 5.56 0 0 0-3.94-1.64H9l.92.82A6.18 6.18 0 0 1 12 8.4v1.56l2 2h2.47l2.26 1.91"/>
+                    </svg>
+                </div>
+            </a>
+
         </div>
     </div>
 </header>
+
 <section class="bg-white border-b border-gray-200">
     <div class="max-w-7xl mx-auto px-4 py-6">
         <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
@@ -96,17 +123,85 @@
 
         </div>
         <div class="flex items-center justify-between mt-6 pt-4 border-t border-gray-200">
-            <span class="text-gray-600 text-sm">6 صناعي متاح</span>
+            <!-- Total craftsmen -->
+            <span class="text-gray-600 text-sm">${many} صناعي متاح</span>
+
+            <!-- My Requests Button -->
+            <a href="/myrequests"
+               class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm font-medium">
+                طلباتـي
+            </a>
         </div>
+
     </div>
 </section>
 
 <!-- Craftsmen Grid Section -->
 <main class="max-w-7xl mx-auto px-4 py-12">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
+    <div id="main" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Craftsman Card 1 -->
-        <div class="craftsman-card bg-white rounded-lg overflow-hidden shadow-md">
+        <c:forEach items="${service}" var="serv" >
+            <div class="craftsman-card bg-white rounded-lg overflow-hidden shadow-md">
+                <div class="relative h-48 bg-gray-200 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&h=300&fit=crop" alt="خالد أحمد" class="w-full h-full object-cover">
+                </div>
+                <div class="p-4">
+                    <div class="flex items-start justify-between mb-2">
+                        <div class="text-right flex-1">
+                            <h3 class="font-bold text-gray-900">${serv.user.userName}</h3>
+                            <p class="text-sm text-gray-600"></p>
+                        </div>
+
+                        <div class="rating-badge text-white px-2 py-1 rounded-md text-sm font-bold flex items-center gap-1">
+                            <span>${serv.avareg}</span>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="flex  justify-between space-y-2 text-sm text-gray-600 mb-4">
+                        <div>
+                            <h1 class="text-xl">${serv.name}</h1>
+                            <h1 class="w-25 text-sm">${serv.description}</h1>
+                        </div>
+                        <div class="flex items-center gap-2 ">
+                            <span>${serv.user.location}</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between text-sm text-blue-600 border-t border-gray-200 pt-3">
+                        <a href="/booking/${serv.id}" class="hover:underline">تقديم طلب خدمة</a>
+                        <span> ${serv.doneOrders}  الاعمال المنجز</span>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
+
+
+
+
+
+
+
+    </div>
+</main>
+<!-- Include Footer -->
+<jsp:include page="includes/footer.jsp" />
+</body>
+<script>
+    document.getElementById("profession").addEventListener("change", function() {
+        const selected = this.value;
+        console.log(selected);
+        axios.get(`/userhome?rate=${selected}`)
+            .then(response => {
+                let html =``
+                const data = response.data;
+                const main = document.getElementById("mian");
+                data.forEach(trying => {
+                    html = `  <div class="craftsman-card bg-white rounded-lg overflow-hidden shadow-md">
             <div class="relative h-48 bg-gray-200 overflow-hidden">
                 <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&h=300&fit=crop" alt="خالد أحمد" class="w-full h-full object-cover">
             </div>
@@ -114,7 +209,7 @@
                 <div class="flex items-start justify-between mb-2">
                     <div class="text-right flex-1">
                         <h3 class="font-bold text-gray-900">خالد أحمد</h3>
-                        <p class="text-sm text-gray-600">نجار</p>
+                        <p class="text-sm text-gray-600">${trying.user.username}</p>
                     </div>
                     <div class="rating-badge text-white px-2 py-1 rounded-md text-sm font-bold flex items-center gap-1">
                         <span>4.7</span>
@@ -145,18 +240,12 @@
                 </div>
             </div>
         </div>
-    </div>
-</main>
-<!-- Include Footer -->
-<jsp:include page="includes/footer.jsp" />
-</body>
-<script>
-    document.getElementById("profession").addEventListener("change", function() {
-        const selected = this.value;
-        console.log(selected);
-        fetch(`/userhome?rate=${selected}`)
-            .then(response => response.json())
+ `;
+
+                });
+            });
     });
+    main.innerHTML = html;
 
 </script>
 </html>

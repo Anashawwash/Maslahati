@@ -2,6 +2,7 @@ package com.anas.maslahati_pro.Models;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -19,13 +20,26 @@ public class Request {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @NotEmpty(message = "Location is required!")
+    private String problemDesc;
+
+    @NotEmpty(message = "Location is required!")
+    private String address;
+
+    @NotEmpty(message = "Location is required!")
+    private String phoneNumber;
 
 //    Many Requests can be for one Service
     @ManyToOne
     @JoinColumn(name = "service_id")
     private ServiceTypes Service;
 
+//    this means that the status of the request in still new less than 3 days
+    private boolean status = true;
+
     private Boolean done = false;
+
+    private boolean inProgress = false;
 
     @Column(updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -38,6 +52,64 @@ public class Request {
 
 //=====------------_________------------________________
 
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public boolean isInProgress() {
+        return inProgress;
+    }
+
+    public void setInProgress(boolean inProgress) {
+        this.inProgress = inProgress;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getProblemDesc() {
+        return problemDesc;
+    }
+
+    public void setProblemDesc(String problemDesc) {
+        this.problemDesc = problemDesc;
+    }
 
     @PrePersist
     protected void onCreate(){

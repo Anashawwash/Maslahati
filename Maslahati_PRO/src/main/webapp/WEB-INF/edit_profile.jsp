@@ -25,7 +25,7 @@
 <div class="max-w-4xl mx-auto p-6 py-12">
     <!-- Header -->
     <div class="mb-8">
-        <a href="profile.jsp" class="inline-flex items-center gap-2 text-gray-600 hover:text-[#2563eb] mb-4 transition-colors">
+        <a href="user_profile.jsp" class="inline-flex items-center gap-2 text-gray-600 hover:text-[#2563eb] mb-4 transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="m15 18-6-6 6-6"/>
             </svg>
@@ -43,7 +43,7 @@
                 <label class="block text-gray-900 font-semibold mb-4 text-lg">الصورة الشخصية</label>
                 <div class="flex items-center gap-6">
                     <div class="relative">
-                        <img id="avatarPreview" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1c2VyJTIwYXZhdGFyJTIwbWFufGVufDF8fHx8MTc2NDA3NTM5MHww&ixlib=rb-4.1.0&q=80&w=1080"
+                        <img id="avatarPreview" src="${user.avatar}"
                              alt="Avatar"
                              class="w-24 h-24 rounded-full object-cover border-4 border-gray-100">
                         <label for="avatarUpload" class="absolute bottom-0 left-0 w-8 h-8 bg-[#2563eb] hover:bg-[#1d4ed8] rounded-full flex items-center justify-center cursor-pointer transition-colors">
@@ -73,12 +73,12 @@
 
                 <!-- Full Name -->
                 <div>
-                    <label for="fullName" class="block text-gray-700 font-medium mb-2">الاسم الكامل</label>
+                    <label for="name" class="block text-gray-700 font-medium mb-2">الاسم الكامل</label>
                     <div class="relative">
                         <input type="text"
                                id="fullName"
-                               name="fullName"
-                               value="محمد أحمد علي"
+                               name="${user.name}"
+                               value="${user.name}"
                                required
                                class="w-full px-5 py-4 pr-12 border-2 border-gray-200 rounded-[20px] focus:outline-none focus:ring-2 focus:ring-[#2563eb] focus:border-transparent transition-all">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
@@ -95,7 +95,7 @@
                         <input type="email"
                                id="email"
                                name="email"
-                               value="mohamed.ahmed@email.com"
+                               value="${user.email}"
                                required
                                class="w-full px-5 py-4 pr-12 border-2 border-gray-200 rounded-[20px] focus:outline-none focus:ring-2 focus:ring-[#2563eb] focus:border-transparent transition-all">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
@@ -104,15 +104,30 @@
                         </svg>
                     </div>
                 </div>
-
+                <!-- location -->
+                <div>
+                    <label for="location" class="block text-gray-700 font-medium mb-2">البريد الإلكتروني</label>
+                    <div class="relative">
+                        <input type="text"
+                               id="location"
+                               name="location"
+                               value="${user.location}"
+                               required
+                               class="w-full px-5 py-4 pr-12 border-2 border-gray-200 rounded-[20px] focus:outline-none focus:ring-2 focus:ring-[#2563eb] focus:border-transparent transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
+                            <rect width="20" height="16" x="2" y="4" rx="2"/>
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                        </svg>
+                    </div>
+                </div>
                 <!-- Phone -->
                 <div>
-                    <label for="phone" class="block text-gray-700 font-medium mb-2">رقم الهاتف</label>
+                    <label for="phoneNumber" class="block text-gray-700 font-medium mb-2">رقم الهاتف</label>
                     <div class="relative">
-                        <input type="tel"
+                        <input type="text"
                                id="phone"
-                               name="phone"
-                               value="+20 123 456 7890"
+                               name="phoneNumber"
+                               value="${user.phoneNumber}"
                                required
                                class="w-full px-5 py-4 pr-12 border-2 border-gray-200 rounded-[20px] focus:outline-none focus:ring-2 focus:ring-[#2563eb] focus:border-transparent transition-all">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
@@ -121,15 +136,6 @@
                     </div>
                 </div>
 
-                <!-- Bio -->
-                <div>
-                    <label for="bio" class="block text-gray-700 font-medium mb-2">نبذة عنك</label>
-                    <textarea id="bio"
-                              name="bio"
-                              rows="4"
-                              placeholder="اكتب نبذة مختصرة عنك..."
-                              class="w-full px-5 py-4 border-2 border-gray-200 rounded-[20px] focus:outline-none focus:ring-2 focus:ring-[#2563eb] focus:border-transparent transition-all resize-none">أنا مستخدم نشط في سوق الصنايعية أبحث عن أفضل الحرفيين المحترفين.</textarea>
-                </div>
             </div>
 
             <!-- Form Actions -->
@@ -142,7 +148,7 @@
                     </svg>
                     حفظ التغييرات
                 </button>
-                <a href="profile.jsp"
+                <a href="user_profile.jsp"
                    class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-4 rounded-[20px] transition-colors font-semibold text-lg flex items-center justify-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M18 6 6 18"/>

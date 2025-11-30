@@ -19,43 +19,41 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true )
-    @NotEmpty(message = "Username name is required")
-    @Size(min = 3 , max = 30,message = "Username must be between 3 and 30 characters")
+    // Username
+    @Column(unique = true)
+    @NotEmpty(message = "Username is required")
+    @Size(min = 3, max = 30, message = "Username must be between 3 and 30 characters")
     private String userName;
 
-    @Column(unique = true )
-    @NotBlank(message = "Username name is required")
-    @Email(message = "the email should be valid")
+    // Email
+    @Column(unique = true)
+    @NotBlank(message = "Email is required")
+    @Email(message = "Email must be valid")
     private String email;
 
-    public String getAvatar() {
-        return avatar;
-    }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
 
     @NotEmpty(message="Password is required!")
     @Size(min=8, max=128, message="Password must be between 8 and 128 characters")
     private String password;
 
-    @NotEmpty(message="PhoneNumber  is required!")
-    @Size(min=10, max=10, message="Password must be between 8 and 128 characters")
+    // Phone Number
+    @Column(unique = true)
+    @NotEmpty(message = "Phone number is required!")
+    @Size(min = 10, max = 10, message = "Phone number must be exactly 10 digits")
     private String phoneNumber;
-//user avatar
-    private String avatar ="https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg";
 
+    // Avatar (Default)
+    private String avatar = "https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg";
 
-
-    @NotEmpty(message="Location is required!")
+    // Location
+    @NotEmpty(message = "Location is required!")
     private String location;
 
     @Transient
-    @NotEmpty(message="Confirm Password is required!")
-    @Size(min=8, max=128, message="Confirm Password must be between 8 and 128 characters")
-    private String confirmPas;
+    @NotEmpty(message = "Confirm password is required!")
+    @Size(min = 8, max = 128, message = "Confirm password must be between 8 and 128 characters")
+    private String confirmPassword;
 
     private boolean craftsman = false;
 
@@ -75,9 +73,13 @@ public class User {
     private List<ServiceTypes> services = new ArrayList<>();
 
 
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
 
-
-
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
     @Column(updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -88,11 +90,11 @@ public class User {
 
 //    -----------------Starting the methods _____________----------____________--------________
     @PrePersist
-    protected void onCreate(){
+    protected void onCreate() {
         this.createdAt = new Date();
     }
     @PreUpdate
-    protected void onUpdate(){
+    protected void onUpdate() {
         this.updatedAt = new Date();
     }
 
@@ -101,63 +103,62 @@ public class User {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public List<Review> getReviews() {
+        return reviews;
     }
 
-    public String getUserName() {
-        return userName;
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public List<Request> getRequests() {
+        return requests;
     }
 
-    public String getEmail() {
-        return email;
+    public void setRequests(List<Request> requests) {
+        this.requests = requests;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public List<ServiceTypes> getServices() {
+        return services;
     }
 
-    public String getPassword() {
-        return password;
+    public void setServices(List<ServiceTypes> services) {
+        this.services = services;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+    public void setId(Long id) { this.id = id; }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+    public String getUserName() { return userName; }
 
-    public String getLocation() {
-        return location;
-    }
+    public void setUserName(String userName) { this.userName = userName; }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
+    public String getEmail() { return email; }
 
-    public String getConfirmPas() {
-        return confirmPas;
-    }
+    public void setEmail(String email) { this.email = email; }
 
-    public void setConfirmPas(String confirmPas) {
-        this.confirmPas = confirmPas;
-    }
+    public String getPassword() { return password; }
 
-    public boolean isCraftsman() {
-        return craftsman;
-    }
+    public void setPassword(String password) { this.password = password; }
 
-    public void setCraftsman(boolean craftsman) {
-        this.craftsman = craftsman;
-    }
+    public String getPhoneNumber() { return phoneNumber; }
+
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+
+    public String getAvatar() { return avatar; }
+
+    public void setAvatar(String avatar) { this.avatar = avatar; }
+
+    public String getLocation() { return location; }
+
+    public void setLocation(String location) { this.location = location; }
+
+    public String getConfirmPassword() { return confirmPassword; }
+
+    public void setConfirmPassword(String confirmPassword) { this.confirmPassword = confirmPassword; }
+
+    public boolean isCraftsman() { return craftsman; }
+
+    public void setCraftsman(boolean craftsman) { this.craftsman = craftsman; }
 }
