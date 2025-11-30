@@ -87,7 +87,7 @@
                             class="px-3 py-1 border rounded-md hover:bg-gray-200 transition">
                         <c:choose>
                             <c:when test="${currentLang eq 'ar'}">EN</c:when>
-                            <c:otherwise">AR</c:otherwise>
+                            <c:otherwise>AR</c:otherwise>
                         </c:choose>
                     </button>
                 </form>
