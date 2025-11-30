@@ -1,73 +1,43 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <title>AI Chatbot</title>
+    <title>Chatbot</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <style>
-        .chat-box {
-            height: 500px;
-            overflow-y: scroll;
-        }
-    </style>
 </head>
+<body class="bg-gray-100 p-8">
 
-<body class="bg-gray-100">
-
-<div class="max-w-3xl mx-auto mt-10 p-6 bg-white shadow-xl rounded-2xl">
-    <h1 class="text-3xl font-bold mb-4 text-center text-blue-700">🤖 Moslehati AI Chatbot</h1>
-
-    <!-- Chat messages -->
-    <div id="chatBox" class="chat-box border p-4 rounded-lg bg-gray-50 mb-4"></div>
-
-    <!-- User input -->
-    <div class="flex">
-        <input id="userMessage" type="text" placeholder="Type your message..."
-               class="flex-1 p-3 border rounded-l-lg outline-none">
-        <button onclick="sendMessage()"
-                class="p-3 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 transition">
-            Send
-        </button>
-    </div>
+<div class="max-w-xl mx-auto bg-white p-6 rounded shadow">
+    <h1 class="text-2xl font-bold mb-4">Chatbot</h1>
+    <div id="chatBox" class="border p-3 h-64 overflow-auto mb-4"></div>
+    <input id="messageInput" type="text" class="border p-2 w-full" placeholder="اكتب رسالتك...">
+    <button onclick="sendMessage()" class="bg-blue-500 text-white px-4 py-2 mt-2 rounded">ارسال</button>
 </div>
 
 <script>
+    const chatBox = document.getElementById('chatBox');
+    const messageInput = document.getElementById('messageInput');
+
     function sendMessage() {
-        const msg = document.getElementById("userMessage").value;
-        if (msg.trim() === "") return;
+        const msg = messageInput.value.trim();
+        if (!msg) return;
 
-        // show user message
-        appendMessage("user", msg);
+        appendMessage('انت: ' + msg);
+        messageInput.value = '';
 
-        // send to backend
-        fetch("/api/chatbot", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
+        fetch('/api/chatbot', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({message: msg})
         })
             .then(res => res.text())
-            .then(data => {
-                appendMessage("bot", data);
-            });
-
-        document.getElementById("userMessage").value = "";
+            .then(data => appendMessage(data))
+            .catch(err => appendMessage('خطأ: ' + err));
     }
 
-    function appendMessage(sender, text) {
-        const chatBox = document.getElementById("chatBox");
-        const div = document.createElement("div");
-
-        if (sender === "user") {
-            div.className = "text-right mb-2";
-            div.innerHTML = `<span class="inline-block bg-blue-600 text-white p-2 rounded-lg">${text}</span>`;
-        } else {
-            div.className = "text-left mb-2";
-            div.innerHTML = `<span class="inline-block bg-gray-300 p-2 rounded-lg">${text}</span>`;
-        }
-
-        chatBox.appendChild(div);
+    function appendMessage(msg) {
+        chatBox.innerHTML += '<div>' + msg + '</div>';
         chatBox.scrollTop = chatBox.scrollHeight;
     }
 </script>

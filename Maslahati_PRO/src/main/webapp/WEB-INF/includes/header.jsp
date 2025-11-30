@@ -3,25 +3,20 @@
     String lang = request.getParameter("lang");
     if(lang == null) { lang = "ar"; }
 
-    // نصوص حسب اللغة
     String homeText = lang.equals("en") ? "Home" : "الرئيسية";
     String loginText = lang.equals("en") ? "Login" : "تسجيل الدخول";
     String signupText = lang.equals("en") ? "Sign Up" : "تسجيل حساب";
     String logoText = lang.equals("en") ? "Moslahati" : "مصلحاتي";
-    String langAr = lang.equals("en") ? "Arabic" : "عربي";
-    String langEn = lang.equals("en") ? "English" : "English";
 %>
 
 <header class="bg-white shadow-sm sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-20">
-
             <!-- Navigation -->
             <nav class="flex gap-8 items-center">
                 <a href="/homepage?lang=<%=lang%>" class="hover:underline hover:text-blue-600 nav-link"><%= homeText %></a>
                 <a href="/login?lang=<%=lang%>" class="nav-link"><%= loginText %></a>
                 <a href="/#shoce?lang=<%=lang%>" class="nav-link"><%= signupText %></a>
-
                 <!-- Language Switcher -->
                 <div class="ml-6 flex gap-2">
                     <a href="?lang=ar" class="text-sm font-semibold hover:underline">عربي</a>
@@ -43,3 +38,63 @@
         </div>
     </div>
 </header>
+
+<!-- Chatbot Box -->
+<div id="chatbot-container">
+    <div id="chatbot-header">💬 مساعدة</div>
+    <div id="chat"></div>
+    <input id="chat-message" type="text" placeholder="اكتب رسالتك...">
+    <button id="chat-send">ارسال</button>
+</div>
+
+<style>
+    #chatbot-container { position: fixed; bottom: 20px; right: 20px; width: 300px; font-family: Arial; z-index:1000; }
+    #chatbot-header { background-color: #007bff; color:white; padding:10px; border-radius:10px 10px 0 0; cursor:pointer; text-align:center; }
+    #chat { border:1px solid #ccc; height:250px; overflow-y:auto; background:#f9f9f9; padding:10px; display:block; }
+    #chat-message { width:70%; padding:5px; margin-top:5px; }
+    #chat-send { width:25%; padding:5px; margin-top:5px; }
+</style>
+
+<script>
+    const headerBtn = document.getElementById("chatbot-header");
+    const chatBox = document.getElementById("chat");
+    const input = document.getElementById("chat-message");
+    const sendBtn = document.getElementById("chat-send");
+
+    headerBtn.addEventListener("click", () => {
+        const visible = chatBox.style.display !== "none";
+        chatBox.style.display = visible ? "none" : "block";
+        input.style.display = visible ? "none" : "inline-block";
+        sendBtn.style.display = visible ? "none" : "inline-block";
+    });
+
+    function addMessage(text) {
+        const p = document.createElement("p");
+        p.textContent = text;
+        chatBox.appendChild(p);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    async function sendMessage() {
+        const msg = input.value;
+        if(!msg) return;
+        addMessage("انت: " + msg);
+
+        try {
+            const response = await fetch("/api/chatbot", {
+                method:"POST",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify({ message: msg })
+            });
+            const data = await response.json();
+            addMessage("البوت: " + data.reply);
+        } catch(err) {
+            addMessage("البوت: حدث خطأ في الاتصال");
+        }
+
+        input.value = "";
+    }
+
+    sendBtn.addEventListener("click", sendMessage);
+    input.addEventListener("keypress", e => { if(e.key === "Enter") sendMessage(); });
+</script>
