@@ -1,13 +1,12 @@
-//package com.anas.maslahati_pro.Controllers;
-//
-//import com.anas.maslahati_pro.Models.User;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.ui.Model;
-//import org.springframework.web.bind.annotation.*;
-//
-//@Controller
-//public class AuthController {
-//
+package com.anas.maslahati_pro.Controllers;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+@Controller
+public class AuthController {
+
 //    // ------------------ Login ------------------
 //    @GetMapping("/login")
 //    public String showLoginPage() {
@@ -117,4 +116,4 @@
 //    public String choice() {
 //        return "register-choice";
 //    }
-//}
+}
