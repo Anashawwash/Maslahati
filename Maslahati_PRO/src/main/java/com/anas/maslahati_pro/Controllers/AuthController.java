@@ -53,6 +53,18 @@ public class AuthController {
     public String homepage() {
         return "index";
     }
+    @GetMapping("/profile")
+    public String profile() {
+        return "profile";
+    }
+    @GetMapping("/edit/worker/profilr")
+    public String editWorker() {
+        return "edit-worker-profilr";
+    }
+    @GetMapping("/edit/profile")
+    public String editProfile() {
+        return "edit-profile";
+    }
     @GetMapping("/user/prufile")
     public String prufile() {
         return "user_prufile";
