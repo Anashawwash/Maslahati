@@ -14,14 +14,12 @@ import java.util.List;
 @Repository
 public interface ServiceRepository extends CrudRepository<ServiceTypes,Long> {
 
-
     List<ServiceTypes> findAllByUser(User user);
 
     List<ServiceTypes> findAll();
 
     @Query("SELECT COALESCE(AVG(r.rating), 0) FROM Review r WHERE r.reviewed = :service")
     Double getAverageRate(@Param("service") ServiceTypes service);
-
 
     ServiceTypes findByid(Long id);
 

@@ -117,7 +117,7 @@ public class MainController {
 
 
     @GetMapping("/homeuser")
-    public String homeuser(HttpSession session,Model model) {
+    public String homeusera(HttpSession session,Model model) {
         User user = (User) session.getAttribute("User");
         if (user == null) {
             return "redirect:/";
