@@ -17,6 +17,7 @@
                 <a href="/homepage?lang=<%=lang%>" class="hover:underline hover:text-blue-600 nav-link"><%= homeText %></a>
                 <a href="/login?lang=<%=lang%>" class="nav-link"><%= loginText %></a>
                 <a href="/#shoce?lang=<%=lang%>" class="nav-link"><%= signupText %></a>
+
                 <!-- Language Switcher -->
                 <div class="ml-6 flex gap-2">
                     <a href="?lang=ar" class="text-sm font-semibold hover:underline">عربي</a>
@@ -43,6 +44,7 @@
 <div id="chatbot-container">
     <div id="chatbot-header">💬 مساعدة</div>
     <div id="chat"></div>
+    <div id="typing" style="display:none; color:gray; font-size:14px; margin-top:5px;">البوت يكتب...</div>
     <input id="chat-message" type="text" placeholder="اكتب رسالتك...">
     <button id="chat-send">ارسال</button>
 </div>
@@ -57,15 +59,17 @@
 
 <script>
     const headerBtn = document.getElementById("chatbot-header");
-    const chatBox = document.getElementById("chat");
-    const input = document.getElementById("chat-message");
-    const sendBtn = document.getElementById("chat-send");
+    const chatBox    = document.getElementById("chat");
+    const input      = document.getElementById("chat-message");
+    const sendBtn    = document.getElementById("chat-send");
+    const typingBox  = document.getElementById("typing");
 
     headerBtn.addEventListener("click", () => {
         const visible = chatBox.style.display !== "none";
         chatBox.style.display = visible ? "none" : "block";
         input.style.display = visible ? "none" : "inline-block";
         sendBtn.style.display = visible ? "none" : "inline-block";
+        typingBox.style.display = "none";
     });
 
     function addMessage(text) {
@@ -77,24 +81,33 @@
 
     async function sendMessage() {
         const msg = input.value;
-        if(!msg) return;
+        if (!msg) return;
+
         addMessage("انت: " + msg);
+        input.value = "";
+
+        typingBox.style.display = "block";
 
         try {
             const response = await fetch("/api/chatbot", {
-                method:"POST",
-                headers:{"Content-Type":"application/json"},
-                body:JSON.stringify({ message: msg })
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({ message: msg })
             });
+
             const data = await response.json();
-            addMessage("البوت: " + data.reply);
-        } catch(err) {
+
+            setTimeout(() => {
+                typingBox.style.display = "none";
+                addMessage("البوت: " + data.reply);
+            }, 3000);
+
+        } catch (err) {
+            typingBox.style.display = "none";
             addMessage("البوت: حدث خطأ في الاتصال");
         }
-
-        input.value = "";
     }
 
     sendBtn.addEventListener("click", sendMessage);
-    input.addEventListener("keypress", e => { if(e.key === "Enter") sendMessage(); });
+    input.addEventListener("keypress", e => { if (e.key === "Enter") sendMessage(); });
 </script>
