@@ -32,7 +32,7 @@ public class Request {
 //    Many Requests can be for one Service
     @ManyToOne
     @JoinColumn(name = "service_id")
-    private ServiceTypes Service;
+    private ServiceTypes service;
 
 //    this means that the status of the request in still new less than 3 days
     private boolean status = true;
@@ -139,11 +139,11 @@ public class Request {
     }
 
     public ServiceTypes getService() {
-        return Service;
+        return service;
     }
 
     public void setService(ServiceTypes service) {
-        Service = service;
+        this.service = service;
     }
 
     public Boolean getDone() {

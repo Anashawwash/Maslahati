@@ -187,24 +187,25 @@
                                 <c:otherwise>Description:</c:otherwise>
                             </c:choose>
                         </span> ${request.problemDesc}</p>
+                        <p class="mt-2"><span class="font-semibold">
+                            <c:choose>
+                                <c:when test="${lang=='ar'}">رقم الهاتف:</c:when>
+                                <c:otherwise>PhoneNumber:</c:otherwise>
+                            </c:choose>
+                        </span> ${request.user.phoneNumber}</p>
 
                         <div class="grid grid-cols-2 gap-3 mt-6">
                             <form action="/requests/accept/${request.id}" method="GET">
-                                <button class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
+                                <button class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+                                        onclick="showAgreementMessage()">
+
                                     <c:choose>
                                         <c:when test="${lang=='ar'}">إنهاء</c:when>
                                         <c:otherwise>Complete</c:otherwise>
                                     </c:choose>
                                 </button>
                             </form>
-                            <form action="/requests/reject/${request.id}" method="GET">
-                                <button class="w-full border border-gray-300 py-2 rounded-lg hover:bg-gray-200">
-                                    <c:choose>
-                                        <c:when test="${lang=='ar'}">إلغاء</c:when>
-                                        <c:otherwise>Cancel</c:otherwise>
-                                    </c:choose>
-                                </button>
-                            </form>
+
                         </div>
 
                     </div>
@@ -225,4 +226,9 @@
 
 </div>
 </body>
+<script>
+    function showAgreementMessage() {
+        alert("لا تستطيع انهاء الخدمة دون موافقة المستفيد");
+    }
+</script>
 </html>

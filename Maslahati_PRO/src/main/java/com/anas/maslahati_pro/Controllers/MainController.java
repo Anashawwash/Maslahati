@@ -3,6 +3,7 @@ package com.anas.maslahati_pro.Controllers;
 
 import com.anas.maslahati_pro.Models.*;
 import com.anas.maslahati_pro.Reopsitories.ServiceRepository;
+import com.anas.maslahati_pro.Reopsitories.UserRepository;
 import com.anas.maslahati_pro.Services.RequestServices;
 import com.anas.maslahati_pro.Services.ReviewServices;
 import com.anas.maslahati_pro.Services.ServiceServices;
@@ -32,6 +33,8 @@ public class MainController {
 
     @Autowired
     ReviewServices reviewServ;
+    @Autowired
+    private UserRepository userRepository;
 
 
     @GetMapping("/logout")
@@ -305,6 +308,10 @@ public class MainController {
         serviceServ.updateAverageRate(service);
         request.setDone(true);
         service.setDoneOrders(1);
+        User worker = service.getUser();
+        userServ.getAverageRate(worker);
+        worker.setOrderes(1);
+        userRepository.save(worker);
         serviceServ.saveService(service);
         request.setInProgress(false);
         reviewServ.saveReview(review);
@@ -338,4 +345,29 @@ public class MainController {
         model.addAttribute("services", serviceServ.findAllByUser(user)); // إرسال خدماته
         return "worker_user_prufile"; // اسم صفحة JSP أو HTML الخاصة بالبروفايل
     }
+
+    @GetMapping("/comments")
+    public String comments(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("User");
+        if (user == null) {
+            return "redirect:/";
+        }
+        model.addAttribute("User", user);
+        model.addAttribute("services", serviceServ.findByUser(user));
+        return  "commentPage";
+    }
+
+    @GetMapping("/requests/reject/{id}")
+    public String CancelRequest(@PathVariable("id") Long id, HttpSession session, Model model) {
+        User user = (User) session.getAttribute("User");
+        if (user == null) {
+            return "redirect:/";
+        }
+        if (!user.isCraftsman()) {
+            return "redirect:/homeuser";
+        }
+        requestServ.deleteRequest(id);
+        return "redirect:/servreq";
+    }
 }
+

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -22,7 +23,7 @@
 
         <a class="py-2 mb-2 hover:bg-blue-700 rounded px-3" id="editProfile" href="#">تعديل الملف الشخصي</a>
         <a class="py-2 mb-2 hover:bg-blue-700 rounded px-3" id="viewRequests" href="/servreq">عرض الطلبات</a>
-        <a class="py-2 mb-2 hover:bg-blue-700 rounded px-3" id="ratings" href="#">التقييمات</a>
+        <a class="py-2 mb-2 hover:bg-blue-700 rounded px-3" id="ratings" href="/comments">التقييمات</a>
         <a class="py-2 mb-2 hover:bg-blue-700 rounded px-3" id="addService" href="/addservice">إضافة خدمة جديدة</a>
 
         <div class="mt-auto">
@@ -43,29 +44,20 @@
                 <p><span id="nameLabel" class="font-medium">الاسم:</span> ${worker.userName}</p>
                 <p><span id="emailLabel" class="font-medium">البريد الإلكتروني:</span> ${worker.email}</p>
                 <p><span id="servicesLabel" class="font-medium">عدد الخدمات المقدمة:</span> ${many}</p>
-                <p><span id="experienceLabel" class="font-medium">الخبرة:</span> سنوات</p>
+                <p><span id="experienceLabel" class="font-medium">الخبرة: ${worker.experience}</span> سنوات</p>
             </div>
         </div>
 
         <div class="grid grid-cols-3 gap-6">
-
-            <div class="bg-white shadow rounded-xl p-6 text-center">
-                <h3 class="text-lg font-bold text-gray-700" id="totalClients">إجمالي المستخدمين المخدومين</h3>
-                <p class="text-4xl font-extrabold text-blue-700 mt-3"></p>
-            </div>
-
             <div class="bg-white shadow rounded-xl p-6 text-center">
                 <h3 class="text-lg font-bold text-gray-700" id="overallRating">التقييم العام</h3>
-                <p class="text-4xl font-extrabold text-yellow-500 mt-3"></p>
+                <p class="text-4xl font-extrabold text-yellow-500 mt-3"> ${worker.averageRating}</p>
             </div>
-
             <div class="bg-white shadow rounded-xl p-6 text-center">
                 <h3 class="text-lg font-bold text-gray-700" id="completedOrders">الطلبات المكتملة</h3>
-                <p class="text-4xl font-extrabold text-green-600 mt-3">${worker.userName}</p>
+                <p class="text-4xl font-extrabold text-green-600 mt-3">${worker.orderes}</p>
             </div>
-
         </div>
-
     </div>
 </div>
 

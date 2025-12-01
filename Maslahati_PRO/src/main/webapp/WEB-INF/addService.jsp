@@ -47,6 +47,9 @@
                         <form:option value="حداد" label="حداد"/>
                         <form:option value="موسرجي" label="موسرجي"/>
                         <form:option value="كهربجي" label="كهربجي"/>
+                        <form:option value="بليط" label="بليط"/>
+                        <form:option value="نجار" label="نجار"/>
+                        <form:option value="منظف بيوت" label="منظف بيوت"/>
                     </form:select>
                     <form:errors path="name" cssClass="text-red-500 mt-1"/>
                 </div>

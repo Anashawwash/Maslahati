@@ -14,7 +14,7 @@
         <div class="flex justify-between items-center h-20">
             <!-- Navigation -->
             <nav class="flex gap-8 items-center">
-                <a href="/homepage?lang=<%=lang%>" class="hover:underline hover:text-blue-600 nav-link"><%= homeText %></a>
+                <a href="/" class="hover:underline hover:text-blue-600 nav-link"><%= homeText %></a>
                 <a href="/login?lang=<%=lang%>" class="nav-link"><%= loginText %></a>
                 <a href="/#shoce" class="nav-link"><%= signupText %></a>
 

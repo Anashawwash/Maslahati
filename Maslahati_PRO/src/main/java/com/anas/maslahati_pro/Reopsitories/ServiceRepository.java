@@ -21,6 +21,9 @@ public interface ServiceRepository extends CrudRepository<ServiceTypes,Long> {
     @Query("SELECT COALESCE(AVG(r.rating), 0) FROM Review r WHERE r.reviewed = :service")
     Double getAverageRate(@Param("service") ServiceTypes service);
 
+    List<ServiceTypes> findByUser(User user);
+
+
     ServiceTypes findByid(Long id);
 
 }

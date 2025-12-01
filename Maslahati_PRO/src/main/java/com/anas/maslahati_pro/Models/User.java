@@ -53,7 +53,6 @@ public class User {
 
     // Confirm Password (Not saved in DB)
     @Transient
-    @NotEmpty(message = "Confirm password is required!")
     @Size(min = 8, max = 128, message = "Confirm password must be between 8 and 128 characters")
     private String confirmPassword;
 
@@ -68,19 +67,18 @@ public class User {
     private List<Request> requests = new ArrayList<>();
 
 
+    private Integer orderes = 0;
+
+
+    private Integer experience = 0;
+
+
+    private double averageRating = 0;
 
 //  One user can have More than one service
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<ServiceTypes> services = new ArrayList<>();
 
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
 
     @Column(updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -90,6 +88,44 @@ public class User {
     private Date updatedAt;
 
 //    -----------------Starting the methods _____________----------____________--------________
+
+
+    public double getAverageRating() {
+        return averageRating;
+    }
+
+    public void setAverageRating(double averageRating) {
+        this.averageRating = averageRating;
+    }
+
+    public Integer getOrderes() {
+        return orderes;
+    }
+
+    public void setOrderes(Integer orderes) {
+        this.orderes += orderes;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public Integer getExperience() {
+        return experience;
+    }
+
+    public void setExperience(Integer experience) {
+        this.experience = experience;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = new Date();

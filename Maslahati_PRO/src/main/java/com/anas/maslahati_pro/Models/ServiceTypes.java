@@ -38,7 +38,7 @@ public class ServiceTypes{
     private User  user;
 
 //    each service will have more than one request
-    @OneToMany(mappedBy = "Service",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "service",cascade = CascadeType.ALL)
     private List<Request> requests = new ArrayList<>();
 
 //each post or service would have more than one review

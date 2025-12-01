@@ -46,5 +46,8 @@ public class ServiceServices {
     }
 
 
+    public List<ServiceTypes> findByUser(User user){
+        return serviceRepo.findByUser(user);
+    }
 
 }

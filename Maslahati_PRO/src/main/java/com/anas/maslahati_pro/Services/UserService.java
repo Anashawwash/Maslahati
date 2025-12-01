@@ -64,6 +64,10 @@ public class UserService {
 
 
 
+    public void getAverageRate(User user){
+        user.setAverageRating(userRepo.getAverageRate(user));
+        userRepo.save(user);
+    }
 
 
 

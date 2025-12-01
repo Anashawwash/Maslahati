@@ -1,8 +1,10 @@
 package com.anas.maslahati_pro.Models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -35,10 +37,43 @@ public class Review {
     private String comment;
 
 
+
+    @Column(updatable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date createdAt;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date updatedAt;
+
+
+
 //    ______---------------____________Methods___________
 
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = new Date();
+    }
 
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = new Date();
+    }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 
     public User getReviewer() {
         return reviewer;
