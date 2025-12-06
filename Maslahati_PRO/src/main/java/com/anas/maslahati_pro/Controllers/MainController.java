@@ -371,3 +371,9 @@ public class MainController {
     }
 }
 
+
+    @GetMapping("/hello")
+    public String cancel(){
+        return "redirect:/";
+    }
+
